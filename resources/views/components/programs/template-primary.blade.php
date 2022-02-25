@@ -64,33 +64,36 @@
         <header style="background-color: rgba(0,0,0,.1)" class="my-2 text-white text-lg font-bold uppercase">Participants</header>
 
         @foreach($event->ensembles AS $ensemble)
-            <div class="ensemble-container mb-6">
+            {{-- ONLY DISPLAY MIXED CHORUS INFORMATION --}}
+            @if($ensemble->id === 1)
+                <div class="ensemble-container mb-6">
 
-                <header class="uppercase mb-1">
-                    {{ $ensemble->name }}
-                    <span class="text-sm">({{ $participants->count() }} participants)</span>
-                </header>
+                    <header class="uppercase mb-1">
+                        {{ $ensemble->name }}
+                        <span class="text-sm">({{ $participants->count() }} participants)</span>
+                    </header>
 
-                <div id="participants-container" class="flex flex-wrap justify-center">
-                    @foreach($ensemble->instrumentations AS $instrumentation)
-                        <div class="border border-white" style="{{ ($loop->iteration % 2) ?: 'background-color: rgba(255,255,255,.1);' }}">
+                    <div id="participants-container" class="flex flex-wrap justify-center">
+                        @foreach($ensemble->instrumentations AS $instrumentation)
+                            <div class="border border-white" style="{{ ($loop->iteration % 2) ?: 'background-color: rgba(255,255,255,.1);' }}">
 
-                            <header class="font-bold uppercase border-b-white px-2">{{ $instrumentation->descr }} ({{ $participants->where('ensemble_id', $ensemble->id)->where('instrumentation_id', $instrumentation->id)->count() }})</header>
+                                <header class="font-bold uppercase border-b-white px-2">{{ $instrumentation->descr }} ({{ $participants->where('ensemble_id', $ensemble->id)->where('instrumentation_id', $instrumentation->id)->count() }})</header>
 
-                            @foreach($participants->where('ensemble_id', $ensemble->id)->where('instrumentation_id', $instrumentation->id) AS $participant)
+                                @foreach($participants->where('ensemble_id', $ensemble->id)->where('instrumentation_id', $instrumentation->id) AS $participant)
 
-                                <div class="px-2"
-                                     style="@if(($participant->school->id == $schoolid) || ($participant->id == $participantid)) color: gold; @endif"
-                                     title="{{ $participant->school->name }}">
-                                    {{ $participant->first.' '.$participant->last }}
-                                </div>
-                            @endforeach
+                                    <div class="px-2"
+                                         style="@if(($participant->school->id == $schoolid) || ($participant->id == $participantid)) color: gold; @endif"
+                                         title="{{ $participant->school->name }}">
+                                        {{ $participant->first.' '.$participant->last }}
+                                    </div>
+                                @endforeach
 
-                        </div>
-                    @endforeach
+                            </div>
+                        @endforeach
 
+                    </div>
                 </div>
-            </div>
+            @endif
         @endforeach
 
     </section>

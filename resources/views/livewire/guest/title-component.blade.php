@@ -82,7 +82,9 @@
     {{-- CONDUCTOR'S PROGRAM --}}
     <div id="conductors-program" class="mt-4">
 
-        @if($event) <x-programs.template-primary :event="$event" :participants="$participants" :compositionid="$compositionid"/> @endif
+        @if($event)
+            <x-programs.template-primary :event="$event" :participants="$participants" :compositionid="$compositionid"/>
+        @endif
 
     </div>
 
