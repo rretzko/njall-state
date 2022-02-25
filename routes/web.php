@@ -1,0 +1,93 @@
+<?php
+
+use App\Http\Controllers\Admin\ArtistController;
+use App\Http\Controllers\Admin\ArtisttypeController;
+use App\Http\Controllers\Admin\CompositionController;
+use App\Http\Controllers\Admin\ConductorController;
+use App\Http\Controllers\Admin\EnsembleController;
+use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\InstrumentationController;
+use App\Http\Controllers\Admin\ParticipantController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\ProgramController;
+use App\Http\Controllers\Admin\ProgramlistController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SchoolController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\UserProfileController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
+Route::view('/', 'welcome');
+
+Auth::routes(['register' => false]);
+
+Route::group([
+    'prefix' => 'guest',
+    'as' => 'guest.',
+    'namespace' => 'App\Http\Controllers\Guest'
+], function() {
+    Route::get('conductors', [App\Http\Controllers\Guest\ConductorsController::class, 'index'])
+        ->name('conductors');
+    Route::get('participants', [App\Http\Controllers\Guest\ParticipantsController::class, 'index'])
+        ->name('participants');
+    Route::get('schools', [App\Http\Controllers\Guest\SchoolsController::class, 'index'])
+        ->name('schools');
+    Route::get('titles', [App\Http\Controllers\Guest\TitlesController::class, 'index'])
+        ->name('titles');
+    Route::get('years', [App\Http\Controllers\Guest\YearsController::class, 'index'])
+        ->name('years');
+});
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+
+    // Permissions
+    Route::resource('permissions', PermissionController::class, ['except' => ['store', 'update', 'destroy']]);
+
+    // Roles
+    Route::resource('roles', RoleController::class, ['except' => ['store', 'update', 'destroy']]);
+
+    // Users
+    Route::resource('users', UserController::class, ['except' => ['store', 'update', 'destroy']]);
+
+    // Event
+    Route::resource('events', EventController::class, ['except' => ['store', 'update', 'destroy']]);
+
+    // Ensemble
+    Route::resource('ensembles', EnsembleController::class, ['except' => ['store', 'update', 'destroy']]);
+
+    // Conductor
+    Route::resource('conductors', ConductorController::class, ['except' => ['store', 'update', 'destroy']]);
+
+    // Composition
+    Route::resource('compositions', CompositionController::class, ['except' => ['store', 'update', 'destroy']]);
+
+    // Artist
+    Route::resource('artists', ArtistController::class, ['except' => ['store', 'update', 'destroy']]);
+
+    // Artisttype
+    Route::resource('artisttypes', ArtisttypeController::class, ['except' => ['store', 'update', 'destroy']]);
+
+    // School
+    Route::resource('schools', SchoolController::class, ['except' => ['store', 'update', 'destroy']]);
+
+    // Instrumentation
+    Route::resource('instrumentations', InstrumentationController::class, ['except' => ['store', 'update', 'destroy']]);
+
+    // Participant
+    Route::resource('participants', ParticipantController::class, ['except' => ['store', 'update', 'destroy']]);
+
+    // Program
+    Route::resource('programs', ProgramController::class, ['except' => ['store', 'update', 'destroy']]);
+
+    // Programlist
+    Route::resource('programlists', ProgramlistController::class, ['except' => ['store', 'update', 'destroy']]);
+});
+
+Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth']], function () {
+    if (file_exists(app_path('Http/Controllers/Auth/UserProfileController.php'))) {
+        Route::get('/', [UserProfileController::class, 'show'])->name('show');
+    }
+});
