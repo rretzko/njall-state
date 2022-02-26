@@ -18,7 +18,7 @@
         </div>
         <div class="mb-2">
             @if(! is_null($event->program_link))
-                <a href="https://www.google.com/url?q=https://drive.google.com/file/d/14OHjf_QKJCGl_h6k5TDPFGzrRybkJVjw/view?usp%3Dsharing&sa=D&source=editors&ust=1644535994569043&usg=AOvVaw00TcqUnnGU7gQGz935hTeV"
+                <a href="{{ $event->program_link }}"
                    target="_BLANK"
                    class="text-sm"
                 >
