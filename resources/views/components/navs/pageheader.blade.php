@@ -1,7 +1,6 @@
 <style>
 
     #nav-links a {
-        background-color: lightgray;
         border-top-left-radius: .5rem;
         border-top-right-radius: .5rem;
         font-family: "Times New Roman";
