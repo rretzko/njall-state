@@ -40,6 +40,11 @@ Route::group([
         ->name('years');
 });
 
+Route::group(['prefix' => 'eventadmin', 'as' => 'eventadmin.'], function () {
+    Route::get('eventadmin', [App\Http\Controllers\Eventadmin\EventadminController::class, 'index'])
+        ->name('eventadmin');
+});
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
