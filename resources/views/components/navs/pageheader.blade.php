@@ -19,7 +19,7 @@
 
         @if($_SERVER['REMOTE_ADDR'] === '10.244.10.21')
             <a href="{{ route('eventadmin.eventadmin') }}" class="mr-1 px-1 py-1  bg-blueGray-300 text-blueGray-600  @if(Request::segment(2) === 'titles') bg-white text-blueGray-800 @endif rounded-t text-center md:text-lg">
-                {{ $_SERVER['REMOTE_ADDR'] }}
+                Administration
             </a>
         @endif
 
