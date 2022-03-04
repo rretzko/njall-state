@@ -1,3 +1,6 @@
+@props([
+    'isadmin' => \App\Traits\IsAdminTrait::isAdmin(),
+])
 <style>
 
     #nav-links a {
@@ -17,14 +20,14 @@
 <section id="nav-pageheader" class="text-sm mt-2 border-blueGray-100 border-b " >
     <div id="nav-links" class="flex sm:align-middle justify-center" >
 
-        @if(isset($eventadmin) && $eventadmin)
+        @if($isadmin)
             <a href="{{ route('eventadmin.eventadmin') }}" class="mr-1 px-1 py-1  bg-blueGray-300 text-blueGray-600  @if(Request::segment(2) === 'eventadmin') bg-white text-blueGray-800 @endif rounded-t text-center md:text-lg">
                 Administration
             </a>
         @else
-        <a href="https://njall-state.com" class="mr-1 px-1 py-1  bg-blueGray-300 text-blueGray-600  @if(Request::segment(2) === 'eventadmin') bg-white text-blueGray-800 @endif rounded-t text-center md:text-lg">
-            Home
-        </a>
+            <a href="https://njall-state.com" class="mr-1 px-1 py-1  bg-blueGray-300 text-blueGray-600  @if(Request::segment(2) === 'eventadmin') bg-white text-blueGray-800 @endif rounded-t text-center md:text-lg">
+                Home
+            </a>
         @endif
 
         <a href="{{ route('guest.years') }}" class="mr-1 px-1 py-1 bg-blueGray-300 text-blueGray-600 @if(Request::segment(2) === 'years') bg-white text-blueGray-800 @endif  rounded-t text-indigo-600 text-center md:text-lg ">

@@ -39,6 +39,7 @@
                 font-size: 1.5rem;
             }
         </style>
+
         <x-navs.pageheader />
 
         <div class="relative flex items-top justify-center min-h-screen sm:items-center sm:pt-0">
