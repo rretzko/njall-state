@@ -40,11 +40,7 @@
                 </svg>
             </div>
         </div>
-    <!-- {{--
-                    <span href="/assets/media/audio/09 What Would You Do if you Married a Soldier-Mack Wilberg.mp3" class="ml-2 bg-red-500 px-2 text-xs">
-                        Listen
-                    </span>
---}} -->
+
     @endif
 
 </div>
