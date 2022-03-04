@@ -57,6 +57,11 @@ class Event extends Model
         return $this->belongsToMany(Ensemble::class)->orderBy('order_by');
     }
 
+    public function media()
+    {
+        return $this->hasMany(Media::class);
+    }
+
     public function participants()
     {
         return $this->belongsToMany(Participant::class)->orderBy('order_by');

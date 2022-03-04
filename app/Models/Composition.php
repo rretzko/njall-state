@@ -92,6 +92,11 @@ class Composition extends Model
             ->wherePivot('artisttype_id', Artisttype::LYRICIST);
     }
 
+    public function media()
+    {
+        return $this->hasMany(Media::class);
+    }
+
    public function events()
     {
         return $this->belongsToMany(Event::class)

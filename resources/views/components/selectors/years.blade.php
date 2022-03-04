@@ -28,7 +28,7 @@
 
     </div>
 
-    <select wire:model="selectoryear" name="year_of" style="color: darkblue;" class="h-12">
+    <select wire:model.debounce.1000ms="selectoryear" name="year_of" style="color: darkblue;" class="h-12" autofocus>
         @foreach($events AS $event)
             <option value="{{ $event->id }}">
                 {{ $event->year_of }}

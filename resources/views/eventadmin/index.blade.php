@@ -1,6 +1,11 @@
 @extends('layouts.guest')
 @section('content')
 
-    {{ __FILE__ }}
+    <header> Event Administration Functions </header>
+    <div>
+        <ol>
+            <li>Change Voice Parts</li>
+        </ol>
+    </div>
 
 @endsection

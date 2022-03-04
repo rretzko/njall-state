@@ -28,32 +28,22 @@
         </div>
     </section>
 
+    {{-- AUDIO --}}
+    <audio id="player" src=""  ></audio>
+    <script>
+        function playthis($file){
+            var $player = document.getElementById('player');
+            $player.src = $file;
+            console.log($file);
+            $player.play();
+        }
+    </script>
+
+    {{-- PROGRAM SELECTIONS --}}
     <section id="program" class="mt-2 text-center border border-white" style="margin: auto;">
         <header style="background-color: rgba(0,0,0,.1)" class="my-2 text-white text-lg font-bold uppercase">Program</header>
         @forelse($event->compositions AS $composition)
-            <div class="py-1
-                    @if($composition->pivot->combined) font-bold @endif
-            @if($composition->pivot->opener || $composition->pivot->closer) italic @endif"
-                 style="{{ ($loop->iteration % 2) ?: 'background-color: rgba(255,255,255,.1);' }}"
-            >
-                <span style="@if($composition->id == $compositionid) color: gold; @endif">
-                    {{ $composition->title}}
-                </span>
-                @if($composition->pivot->combined) (combined) @endif
-
-                @forelse($composition->composers AS $composer)
-                    <span class="text-sm" style="font-style: italic;">{{ $composer->fullname }}</span>
-                @empty
-                    {{-- do nothing --}}
-                @endforelse
-
-                @forelse($composition->arrangers AS $arranger)
-                    <span class="text-sm" style="font-style: italic;" >arr. {{ $arranger->fullname }}</span>
-                @empty
-                    {{-- do nothing --}}
-                @endforelse
-
-            </div>
+            <x-programs.composition-detail :composition="$composition" :event="$event" compositionid="{{$compositionid}}" iteration="{{ $loop->iteration }}"/>
         @empty
             No compositions found for {{ $event->name }}.
         @endforelse
