@@ -13,18 +13,14 @@ class YearComponent extends Component
     public $event = NULL;
     public $events = NULL;
     public $firstevent = NULL;
-    public $is_admin = false;
     public $lastevent = NULL;
     public $selectoryear = 7;
-
-    use IsAdminTrait;
 
     public function mount()
     {
         $this->events = Event::orderByDesc('year_of')->get();
         $this->event = $this->events->first();
         $this->firstevent = $this->events->first();
-        $this->is_admin = $this->isAdmin();
         $this->lastevent = $this->events->last();
         $this->selectoryear = $this->event->id;
     }
