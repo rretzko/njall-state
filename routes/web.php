@@ -43,7 +43,7 @@ Route::group([
 Route::group(['prefix' => 'eventadmin', 'as' => 'eventadmin.'], function () {
     Route::get('eventadmin', [App\Http\Controllers\Eventadmin\EventadminController::class, 'index'])
         ->name('eventadmin');
-    Route::get('voiceparts/edit', [App\Http\Controllers\Eventadmin\VoicepartController::class, 'edit'])
+    Route::get('voiceparts/edit', [App\Http\Controllers\Eventadmin\VoicepartController::class, 'index'])
         ->name('voicepart.edit');
 });
 

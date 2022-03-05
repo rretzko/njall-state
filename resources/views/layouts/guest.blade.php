@@ -32,7 +32,7 @@
 </head>
 <body class="">
 
-    <x-navs.pageheader />
+    <x-navs.pageheader active="{{ isset($active) ? $active : Request::segment(2) }}" />
 
     <main style="margin-top: 1rem; ">
 

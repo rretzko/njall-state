@@ -9,12 +9,13 @@
         <header class="font-bold underline uppercase mb-4"> Event Administration Functions</header>
         <div class="flex flex-col">
             <a href="{{ route('eventadmin.voicepart.edit') }}">
-                Change Voice Parts
+                Mass Change Voice Parts
             </a>
-            <a>Add Audio links</a>
-            <a>Upload Event</a>
-            <a>Upload Program</a>
-            <a>Upload Participants</a>
+            <a class="text-gray-600">Add Audio links</a>
+            <a class="text-gray-600">Edit Participant</a>
+            <a class="text-gray-600">Upload Event</a>
+            <a class="text-gray-600">Upload Program</a>
+            <a class="text-gray-600">Upload Participants</a>
         </div>
     </div>
 
