@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'medialibpro' => [
+        'username' => env('MAIL_FROM_ADDRESS'),
+        'password' => env('MEDIA_LIB_PRO'),
+    ]
+
 ];

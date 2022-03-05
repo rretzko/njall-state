@@ -4,7 +4,7 @@ namespace App\Traits;
 
 trait IsAdminTrait
 {
-    public function isAdmin() : bool
+    static public function isAdmin() : bool
     {
         $ipaddresses = ['127.0.0.1:8000',];
 
