@@ -3,7 +3,7 @@
     {{-- SEARCH BOX --}}
     <div id="search-box" class=" ">
         <label for="search" class="mr-2">Search</label>
-        <input wire:model.debounce.500ms="search" class="text-indigo-600" type="text" placeholder="Enter school name" />
+        <input wire:model.debounce.500ms="search" class="text-indigo-600" type="text" placeholder="Enter school name" autofocus />
     </div>
 
     {{-- SCHOOL TABLE --}}
