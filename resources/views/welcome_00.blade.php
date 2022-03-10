@@ -16,119 +16,43 @@
 
         <style>
             body {
-                background-color: white;
+                background-color: rgba(37, 72, 104, 1);
+                background-image: url("../assets/images/nj_shape_white.png");
+                background-repeat: no-repeat;
+                background-position: center;
                 font-family: 'Nunito';
                 font-size: 18px;
-            }
-            #nav-mail{
-                background-color: rgba(37, 72, 104, 1);
             }
         </style>
     </head>
     <body class="antialiased" >
 
+        <!-- <x-navs.pageheader /> -->
+        <style>
+            #nav-links a{
+                color: white;
+                margin-right: 4px;
+                background-color: rgba(255,255,255,.5);
+                border-top-left-radius: .5rem;
+                border-top-right-radius: .5rem;
+                padding: 0 .25rem;
+                font-size: 1.5rem;
+            }
+        </style>
+
         <x-navs.pageheader />
 
-        <div id="page-container" style="margin:0 1rem;">
+        <div class="relative flex items-top justify-center min-h-screen sm:items-center sm:pt-0">
 
-            <div id="banner" style="margin-top: 4rem; display: flex; margin-bottom: 5rem;">
-                <div id="def" style="width: 50%; border-right: 1px solid lightgrey; padding: 0 2rem; font-size: 1.5rem; text-align: justify;">
-                    <p>
-                        The history of the New Jersey All-State Chorus begins in 1929 and continues to this day.
-                    </p>
-                    <p>
-                        The purpose of this site is to act as an aggregator of that history's data, a search vehicle
-                        for those with interest in the event, and historical preservation of
-                        the musical experience created by the dedicated Choral Directors of the New Jersey Music
-                        Educators Association for their students.
-                    </p>
-                </div>
-                <div id="graphic" >
-                    <img src="../assets/images/nj_shape_white.png" style="height: 400px; z-index: 10;"/>
-                    <h2 style="color: gold; z-index: 100; margin-top: -15rem; margin-left: 5rem;">
-                        1949 - {{ date('Y') - 1 }}
-                    </h2>
-                </div>
-            </div><!-- end of banner -->
-
-            <div id="summaries" style=" display: flex; justify-content: space-between; margin: 2rem;">
-                <style>
-                    .summary-card{
-                        background-color: rgba(113,128,150,0.1);
-                        border: 1px solid lightgrey;
-                        display: flex;
-                        flex-direction: column;
-                        margin-right: 0.25rem;
-                        padding: 1rem;
-                        justify-content: center;
-                        width: 100%;
-                    }
-                    .summary-card header{
-                        font-weight: bold;
-                    }
-                    .summary-card header, .summary-card data{
-                        text-align: center;
-                    }
-                </style>
-                <div class="summary-card">
-                    <header>
-                        Years
-                    </header>
-                    <data>
-                        {{ \App\Models\Event::all()->count() }}
-                    </data>
-                </div>
-
-                <div class="summary-card">
-                    <header>
-                        Conductors
-                    </header>
-                    <data>
-                        {{ number_format(\App\Models\Conductor::all()->count(),0) }}
-                    </data>
-                </div>
-
-                <div class="summary-card">
-                    <header>
-                        Participants
-                    </header>
-                    <data>
-                        {{ number_format(\App\Models\Participant::all()->count(),0) }}
-                    </data>
-                </div>
-
-                <div class="summary-card">
-                    <header>
-                        Schools
-                    </header>
-                    <data>
-                        {{ number_format(\App\Models\School::all()->count(),0) }}
-                    </data>
-                </div>
-
-                <div class="summary-card">
-                    <header>
-                        Titles
-                    </header>
-                    <data>
-                        {{ number_format(\App\Models\Composition::all()->count(),0) }}
-                    </data>
-                </div>
-
-            </div>
-
-            <div id="pledge" style="border: 1px solid black; border-radius: 1rem; width: calc(100% - 4rem); margin: 0 2rem;">
-                <header style="font-weight: bold; font-size: 1.15rem; text-align: center;">
-                    How can I help?
-                </header>
-                <div>
-
-                </div>
-
-            </div>
-
-        </div><!-- end of page-container -->
-
+            <header class="text-center">
+                <h1 style="color: gold;">
+                    New Jersey All-State Chorus History
+                </h1>
+                <h2 style="color: gold;">
+                    1949 - {{ date('Y') - 1 }}
+                </h2>
+            </header>
+        </div>
 
     </body>
 </html>
