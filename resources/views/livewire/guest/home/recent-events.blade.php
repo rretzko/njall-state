@@ -40,7 +40,7 @@
                     <button style="border-radius: 1rem; padding:0 1rem; cursor: pointer;"
                             @if(! $this->event->program_link) disabled @endif
                     >
-                        View Program
+                        Program PDF
                     </button>
                 </a>
             </div>
@@ -66,6 +66,15 @@
                 @empty
                     <div>No program found</div>
                 @endforelse
+            </div>
+            <div style="margin: 0.5rem 0;">
+                <a href="{{ $this->event->program_link }}" @if(! $this->event->compositions->count()) disabled @endif target="_NEW">
+                    <button style="border-radius: 1rem; padding:0 1rem; cursor: pointer;"
+                            @if(! $this->event->compositions->count()) disabled @endif
+                    >
+                        Program Detail
+                    </button>
+                </a>
             </div>
         </div>
     </div>
