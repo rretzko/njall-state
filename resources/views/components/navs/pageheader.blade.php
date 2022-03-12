@@ -14,23 +14,33 @@
     }
 
     #nav-links a:hover{
-        color: yellow;
+        color: gold;
+    }
+
+    .active {
+        border-bottom: 4px solid gold;
+        margin-bottom: 1rem;
     }
 
 </style>
 <section id="nav-pageheader" class="text-sm mt-2 border-blueGray-100 border-b " >
 
-    <div id="nav-links" style="display: flex; justify-content: space-between; padding: 0 2rem;">
+    <div id="nav-links" style="display: flex; justify-content: space-between; padding: 0.5rem 2rem; ">
 
         <div id="nav-admin">
 
-            <a href="{{ route('eventadmin.eventadmin') }}" class="mr-1 px-1 py-1 text-blueGray-600  @if($active === 'eventadmin') bg-white text-blueGray-800 @endif rounded-t text-center md:text-lg">
-                Admin
+            <a href="{{ route('eventadmin.eventadmin') }}"
+                class="mr-1 px-1 py-1 text-blueGray-600  @if($active === 'eventadmin') bg-white text-blueGray-800 @endif rounded-t text-center md:text-lg">
+                NJ All-State Chorus History
             </a>
 
         </div>
 
         <div id="nav-guest">
+            <a href="{{ route('home') }}"
+               class="mr-1 px-1 py-1 bg-blueGray-300 text-blueGray-600 rounded-t text-center md:text-lg @if(! isset($active)) active @endif" >
+                Home
+            </a>
             <a href="{{ route('guest.years') }}"
               class="mr-1 px-1 py-1 bg-blueGray-300 text-blueGray-600 @if($active === 'years') bg-white text-blueGray-800 @endif  rounded-t text-center md:text-lg ">
                 Years

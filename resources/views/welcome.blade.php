@@ -24,6 +24,11 @@
                 background-color: rgba(37, 72, 104, 1);
             }
         </style>
+
+        @livewireStyles
+
+        @livewireScripts
+
     </head>
     <body class="antialiased" >
 
@@ -43,89 +48,19 @@
                         Educators Association for their students.
                     </p>
                 </div>
-                <div id="graphic" >
-                    <img src="../assets/images/nj_shape_white.png" style="height: 400px; z-index: 10;"/>
-                    <h2 style="color: gold; z-index: 100; margin-top: -15rem; margin-left: 5rem;">
+                <div id="graphic" style="background-color: transparent; width: 50%; ">
+                    <img src="../assets/images/nj_shape_white.png" style="height:100%; z-index: 10;"/>
+                    <h2 style="color: gold; z-index: 100; margin-top: -13rem; margin-left: 3rem;">
                         1949 - {{ date('Y') - 1 }}
                     </h2>
                 </div>
             </div><!-- end of banner -->
 
-            <div id="summaries" style=" display: flex; justify-content: space-between; margin: 2rem;">
-                <style>
-                    .summary-card{
-                        background-color: rgba(113,128,150,0.1);
-                        border: 1px solid lightgrey;
-                        display: flex;
-                        flex-direction: column;
-                        margin-right: 0.25rem;
-                        padding: 1rem;
-                        justify-content: center;
-                        width: 100%;
-                    }
-                    .summary-card header{
-                        font-weight: bold;
-                    }
-                    .summary-card header, .summary-card data{
-                        text-align: center;
-                    }
-                </style>
-                <div class="summary-card">
-                    <header>
-                        Years
-                    </header>
-                    <data>
-                        {{ \App\Models\Event::all()->count() }}
-                    </data>
-                </div>
+            <x-home.summaries />
 
-                <div class="summary-card">
-                    <header>
-                        Conductors
-                    </header>
-                    <data>
-                        {{ number_format(\App\Models\Conductor::all()->count(),0) }}
-                    </data>
-                </div>
+            <x-home.recentyears />
 
-                <div class="summary-card">
-                    <header>
-                        Participants
-                    </header>
-                    <data>
-                        {{ number_format(\App\Models\Participant::all()->count(),0) }}
-                    </data>
-                </div>
-
-                <div class="summary-card">
-                    <header>
-                        Schools
-                    </header>
-                    <data>
-                        {{ number_format(\App\Models\School::all()->count(),0) }}
-                    </data>
-                </div>
-
-                <div class="summary-card">
-                    <header>
-                        Titles
-                    </header>
-                    <data>
-                        {{ number_format(\App\Models\Composition::all()->count(),0) }}
-                    </data>
-                </div>
-
-            </div>
-
-            <div id="pledge" style="border: 1px solid black; border-radius: 1rem; width: calc(100% - 4rem); margin: 0 2rem;">
-                <header style="font-weight: bold; font-size: 1.15rem; text-align: center;">
-                    How can I help?
-                </header>
-                <div>
-
-                </div>
-
-            </div>
+            <x-home.pledge />
 
         </div><!-- end of page-container -->
 
