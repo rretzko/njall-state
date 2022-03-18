@@ -28,6 +28,16 @@ Route::group([
     'as' => 'guest.',
     'namespace' => 'App\Http\Controllers\Guest'
 ], function() {
+
+    Route::get('event/{event}', [App\Http\Controllers\Guest\EventController::class, 'index'])
+        ->name('event');
+
+    Route::get('events/', [App\Http\Controllers\Guest\EventController::class, 'index'])
+        ->name('events');
+
+    Route::get('years', [App\Http\Controllers\Guest\YearsController::class, 'index'])
+        ->name('years');
+    /** OLD ROUTES */
     Route::get('conductors', [App\Http\Controllers\Guest\ConductorsController::class, 'index'])
         ->name('conductors');
     Route::get('participants', [App\Http\Controllers\Guest\ParticipantsController::class, 'index'])

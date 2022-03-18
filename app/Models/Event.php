@@ -57,6 +57,11 @@ class Event extends Model
         return $this->belongsToMany(Ensemble::class)->orderBy('order_by');
     }
 
+    public static function getCurrentEvent()
+    {
+        return Event::orderByDesc('year_of')->first();
+    }
+
     public function media()
     {
         return $this->hasMany(Media::class);
