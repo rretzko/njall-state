@@ -16,8 +16,8 @@
                     Conductor
                 </div>
                 <div style="margin: 0.5rem 0;">
-                    <a href="{{ $event->program_link }}" @if(! $event->program_link) disabled @endif target="_NEW">
-                        <button style="border-radius: 1rem; padding:0 1rem; cursor: pointer;"
+                    <a href="{{ $event->program_link }}" @if(! $event->program_link) disabled @endif target="_NEW" style="text-align: left;">
+                        <button style="border-radius: 1rem; cursor: pointer; color: blue; font-size: 0.8rem; text-align: left;"
                                 @if(! $event->program_link) disabled @endif
                         >
                             Program PDF
@@ -48,11 +48,13 @@
                     @endforelse
                 </div>
                 <div style="margin: 0.5rem 0;">
-                    <a href="{{ route('guest.event', ['event' => $event]) }}" >
-                        <button style="border-radius: 1rem; padding:0 1rem; cursor: pointer;">
-                            Program Detail
-                        </button>
-                    </a>
+                    @if(! strlen(Route::currentRouteName()))
+                        <a href="{{ route('guest.event', ['event' => $event]) }}" >
+                            <button style="border-radius: 1rem; padding:0 1rem; cursor: pointer;">
+                                Program Detail {{ Route::currentRouteName() }}
+                            </button>
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
