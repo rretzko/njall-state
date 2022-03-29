@@ -1,5 +1,5 @@
 <div id="pledge"
-     style="background-color: rgba(113,128,150,0.1); width: 66%; padding: 0.5rem; border: 1px solid black; border-radius: 1rem; margin: auto;">
+     style="background-color: rgba(113,128,150,0.1); width: 66%; padding: 0.5rem; border: 1px solid black; border-radius: 1rem; margin: auto; margin-bottom: 1rem;">
 
     <header style="font-weight: bold; font-size: 1.15rem; text-align: center;">
         <header style="font-weight: bold; font-size: 1.3rem;">How can I help?</header>
@@ -12,7 +12,7 @@
                         <b>FIND AN ERROR.</b>
                         <ul style="list-style-type: none; font-size: 1rem;">
                             <li>
-                                Many hand make easy work, but can also make many errors.  Names get misspelled, schools
+                                Many hands make easy work, but can also make many errors.  Names get misspelled, schools
                                 get misaligned, non-English titles get mangled.  If you find an error,
                                 <a href="mailto:rick@mfrholdings.com?subject=NJAll-state.com: I found an error!&body=Hi, Rick - "
                                     style="color: blue;"

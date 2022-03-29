@@ -19,6 +19,5 @@ class EventListener extends Component
     public function updateCurrentEvent($year_of)
     {
         $this->event = Event::where('year_of',$year_of)->first();
-
     }
 }

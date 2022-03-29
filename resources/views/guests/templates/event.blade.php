@@ -9,10 +9,7 @@
             <div id="global-select">
                 <livewire:templates.global-search />
             </div>
-            <div id="accordion select">
-                <livewire:templates.sidebar-filter />
-                Accordion select
-            </div>
+
         </div><!-- end of sidebar -->
 
         {{-- CONTENT = CONDUCTOR + PROGRAM + PARTICIPANTS--}}
@@ -20,9 +17,7 @@
 
             {{-- YEAR SELECTORS --}}
             <div id="year-selector" class="flex">
-
                 <livewire:selectors.years-selector :event="$event" :events="$events" />
-
             </div>
 
             {{-- PROGRAM --}}

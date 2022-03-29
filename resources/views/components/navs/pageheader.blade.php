@@ -41,7 +41,7 @@
                class="mr-1 px-1 py-1 rounded-t text-center md:text-lg @if(! isset($active)) active @endif" >
                 Home
             </a>
-
+<!-- {{--
             <a href="{{ route('guest.events') }}"
                class="mr-1 px-1 py-1 rounded-t text-center md:text-lg @if($active === 'events') active @endif" >
                 Events
@@ -51,7 +51,7 @@
               class="mr-1 px-1 py-1 @if($active === 'years') bg-white text-blueGray-800 @endif  rounded-t text-center md:text-lg ">
                 Years
             </a>
-
+--}} -->
             <a href="{{ route('guest.conductors') }}"
                class="mr-1 px-1 py-1 @if($active === 'conductors') bg-white text-blueGray-800 @endif  rounded-t text-center md:text-lg">
                 Conductors

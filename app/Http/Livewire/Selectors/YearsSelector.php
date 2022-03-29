@@ -13,6 +13,10 @@ class YearsSelector extends Component
     public $next=0;
     public $previous=0;
 
+    //listener employed when user is selecting a year from
+    //sidebar list
+    protected $listeners = ['sidebaryear' => 'updateCurrentYear'];
+
     public function mount()
     {
         if(is_null($this->event)){
@@ -38,6 +42,12 @@ class YearsSelector extends Component
     public function previousYear()
     {
         $this->event = Event::where('year_of', $this->previous)->first();
+        $this->calcYears();
+    }
+
+    public function updateCurrentYear($year)
+    {
+        $this->event = Event::where('year_of', $year)->first();
         $this->calcYears();
     }
 
