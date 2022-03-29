@@ -4,6 +4,7 @@
 
     <div id="template-structure" class="flex" style="">
 
+        {{-- SIDEBAR --}}
         <div id="sidebar" class="flex flex-col px-2 py-2" style="background-color: rgba(0,0,0,.1);">
             <div id="global-select">
                 <livewire:templates.global-search />
@@ -14,6 +15,7 @@
             </div>
         </div><!-- end of sidebar -->
 
+        {{-- CONTENT = CONDUCTOR + PROGRAM + PARTICIPANTS--}}
         <div id="request-content" class="flex flex-col w-full ml-1" style="background-color: transparent;">
 
             {{-- YEAR SELECTORS --}}
@@ -30,7 +32,7 @@
 
             {{-- PARTICIPANTS  --}}
             <div id="participants">
-                <livewire:templates.participants-component :event="$event" />
+                <livewire:listeners.participants-listener :event="$event" />
             </div>
 
         </div><!-- end of request-content -->

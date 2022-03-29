@@ -54,6 +54,25 @@ class School extends Model
         return $events->unique()->sortBy('year_of');
     }
 
+    public function getShortnameAttribute()
+    {
+        $shorts = [
+            'regional high school' => 'RHS',
+            'regional' => 'RHS',
+            'high school' => 'HS',
+            'township' => 'Twp',
+        ];
+
+        $shortname = $this->name;
+
+        foreach($shorts AS $key => $short){
+
+            $shortname = str_replace($key, $short, $shortname);
+        }
+//$shortname = str_replace('Township', 'Twp', $shortname);
+        return $shortname;
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

@@ -3,7 +3,9 @@
     @foreach($event->ensembles AS $ensemble)
         @if($ensemble->participantsCount($event))
 
-            <header class="bg-blueGray-300 font-bold mb-2" >{{ $ensemble->name }} Participants</header>
+            <header class="bg-blueGray-300 font-bold mb-2" >
+                {{ $ensemble->name }} Participants ({{ $ensemble->participantsCount($event) }})
+            </header>
 
             @forelse($ensemble->instrumentations AS $instrumentation)
                 <div x-data="{ active: {{ $ensemble->instrumentations->first()->id }} }" class="space-y-4">
@@ -41,3 +43,4 @@
     @endforeach
 
 </div>
+
