@@ -27,7 +27,7 @@
 
             {{-- PARTICIPANTS  --}}
             <div id="participants">
-                <livewire:listeners.participants-listener :event="$event" />
+                <livewire:listeners.participants-listener :event="$event" :participant="$participant" />
             </div>
 
         </div><!-- end of request-content -->

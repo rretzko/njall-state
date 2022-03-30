@@ -56,13 +56,13 @@
                class="mr-1 px-1 py-1 @if($active === 'conductors') bg-white text-blueGray-800 @endif  rounded-t text-center md:text-lg">
                 Conductors
             </a>
-
+<!-- {{--
             <a href="{{ route('guest.participants') }}"
                class="mr-1 px-1 py-1   @if($active === 'participants') bg-white text-blueGray-800 @endif rounded-t text-center md:text-lg "
             >
                 Participants
             </a>
-
+--}} -->
             <a href="{{ route('guest.schools') }}"
                class="mr-1 px-1 py-1  @if($active === 'schools') bg-white text-blueGray-800 @endif rounded-t text-center md:text-lg">
                 Schools

@@ -50,7 +50,7 @@ class Ensemble extends Model
             ->get();
     }
 
-    public function participantsByInstrumentationBlocks(Event $event, Instrumentation $instrumentation, $count)
+    public function participantsByInstrumentationBlocks(Event $event, Instrumentation $instrumentation, $count, Participant $highlight = NULL)
     {
         $str = '<div class="mb-4 px-2 shadow-lg" style="margin-right: 1rem; border-right: 1px solid darkgrey border-bottom: 1px solid darkgrey; width: 20rem;">';
         $cntr = 1;
@@ -61,7 +61,13 @@ class Ensemble extends Model
 
             $display = (strlen($label) > 35) ? trim(substr($label,0,32)).'...' : $label;
 
-            $str .= '<div class="text-left" title="'.$label.'">'.$display.'</div>';
+            $highlightparticipant = ($highlight && ($highlight->id == $participant->id))
+                ? 'background-color: yellow;'
+                : '';
+
+            $str .= '<div class="text-left" title="'.$label.'" style="'.$highlightparticipant.'">'
+                        .$display
+                    .'</div>';
 
             if(! ($cntr % $count)){
                 $str .= '</div>

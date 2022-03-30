@@ -8,6 +8,7 @@ use Livewire\Component;
 class ParticipantsListener extends Component
 {
     public $event;
+    public $participant = NULL;
 
     protected $listeners = ['newevent' => 'updateCurrentEvent'];
 
@@ -19,6 +20,7 @@ class ParticipantsListener extends Component
     public function updateCurrentEvent($year_of)
     {
         $this->event = Event::where('year_of',$year_of)->first();
+        $this->participant = NULL;
 
     }
 }

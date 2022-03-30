@@ -1,7 +1,7 @@
 <div>
     <div class="input-group">
         <label for="globalsearch" class="font-bold">Search by Year, Last Name or<br /> Word in Title</label>
-        <input wire:model.debounce.ms500="globalsearch" class="rounded-full" type="text" id="globalsearch"
+        <input wire:model.debounce.500ms="globalsearch" class="rounded-full" type="text" id="globalsearch"
                placeholder="Enter search value"/>
     </div>
 

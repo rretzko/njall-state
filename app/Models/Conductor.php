@@ -41,6 +41,19 @@ class Conductor extends Model
         return $this->belongsToMany(Event::class);
     }
 
+    public function getFullnameAlphaAttribute()
+    {
+        //[title,firstname,middlename (opt),lastname];
+        $parts = explode(" ", $this->name);
+
+        $title = $parts[0];
+        $first = $parts[1];
+        $middle = (count($parts) === 4) ? $parts[2] : '';
+        $last = $parts[(count($parts) - 1)];
+
+        return $last.', '.$first.' '.$middle.' ('.$title.')';
+    }
+
     public function getLastAttribute()
     {
         $parts = explode(" ", $this->name);

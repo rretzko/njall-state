@@ -29,7 +29,7 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Guest'
 ], function() {
 
-    Route::get('event/{event}', [App\Http\Controllers\Guest\EventController::class, 'index'])
+    Route::get('event/{event}/{participant?}', [App\Http\Controllers\Guest\EventController::class, 'index'])
         ->name('event');
 
     Route::get('events/', [App\Http\Controllers\Guest\EventController::class, 'index'])

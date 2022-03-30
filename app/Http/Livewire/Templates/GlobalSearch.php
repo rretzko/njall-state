@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Templates;
 
+use App\Models\Conductor;
 use App\Models\Event;
 use App\Models\Participant;
 use Livewire\Component;
@@ -27,13 +28,38 @@ class GlobalSearch extends Component
 
         $this->searchresults .= $this->globalsearchYears();
 
+        $this->searchresults .= $this->globalsearchConductors();
+
         $this->searchresults .= '</ul>';
+    }
+
+    private function globalSearchConductors()
+    {
+        $conductors = $this->searchConductors();
+
+        //display label if participants are found
+        $str = count($conductors) ? '<li><b>Conductors</b></li>' : '';
+
+        foreach($conductors AS $conductor){
+
+            $eventid = Event::where('year_of', $conductor['eventyear'])->first()->id;
+
+            $str .= '<li>'
+                .'<a href="/guest/event/'.$eventid.'/'.$conductor['id'].'"'
+                .' style="color: blue;" >'
+                .$conductor['fullnamealpha'].' ('.$conductor['eventyear']
+                .')</a>'
+                . '</li>';
+        };
+
+        return $str;
     }
 
     private function globalSearchParticipants()
     {
         $participants = $this->searchParticipants();
 
+        //display label if participants are found
         $str = count($participants) ? '<li><b>Participants</b></li>' : '';
 
         foreach($participants AS $participant){
@@ -41,7 +67,7 @@ class GlobalSearch extends Component
             $eventid = Event::where('year_of', $participant['eventyear'])->first()->id;
 
             $str .= '<li>'
-                .'<a href="'.$eventid.'"'
+                .'<a href="/guest/event/'.$eventid.'/'.$participant['id'].'"'
                 .' style="color: blue;" >'
                 .$participant['fullnamealpha'].' ('.$participant['eventyear']
                 .')</a>'
@@ -74,6 +100,29 @@ class GlobalSearch extends Component
         return $str;
     }
 
+    private function searchConductors() : array
+    {
+        //early exit
+        if(! strlen($this->globalsearch)){ return [];}
+
+        $a = [];
+
+        foreach(Conductor::where('last', 'LIKE', '%'.$this->globalsearch.'%')
+                    ->get() AS $conductor) {
+
+           $a[] = [
+               'sortby' => $conductor->fullnameAlpha.$conductor->events->first()->year_of,
+                'id' => $conductor->id,
+                'fullnamealpha' => $conductor->fullnameAlpha,
+                'eventyear' => $conductor->events->first()->year_of
+           ];
+        }
+
+        sort($a);
+
+        return $a;
+    }
+
     private function searchParticipants() : array
     {
         //early exit
@@ -84,12 +133,12 @@ class GlobalSearch extends Component
         foreach(Participant::where('last', 'LIKE', '%'.$this->globalsearch.'%')
                     ->get() AS $participant) {
 
-           $a[] = [
-               'sortby' => $participant->fullnameAlpha.$participant->event->year_of,
+            $a[] = [
+                'sortby' => $participant->fullnameAlpha.$participant->event->year_of,
                 'id' => $participant->id,
                 'fullnamealpha' => $participant->fullnameAlpha,
                 'eventyear' => $participant->event->year_of
-           ];
+            ];
         }
 
         sort($a);
