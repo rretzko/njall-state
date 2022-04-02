@@ -7,7 +7,7 @@
         {{-- SIDEBAR --}}
         <div id="sidebar" class="flex flex-col px-2 py-2" style="background-color: rgba(0,0,0,.1);">
             <div id="global-select">
-                <livewire:templates.global-search />
+                @livewire('templates.global-search', ['searchlist' => $searchlist ])
             </div>
 
         </div><!-- end of sidebar -->

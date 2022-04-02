@@ -11,4 +11,14 @@
         </div>
     </div>
 
+    <div>
+        <div>
+            {!! $alphaconductors !!}
+        </div>
+
+        <div>
+            {!! $alphaschools !!}
+        </div>
+    </div>
+
 </div>

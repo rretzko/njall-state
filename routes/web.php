@@ -42,8 +42,10 @@ Route::group([
         ->name('conductors');
     Route::get('participants', [App\Http\Controllers\Guest\ParticipantsController::class, 'index'])
         ->name('participants');
-    Route::get('schools', [App\Http\Controllers\Guest\SchoolsController::class, 'index'])
+
+    Route::get('schools/', [App\Http\Controllers\Guest\SchoolsController::class, 'index'])
         ->name('schools');
+
     Route::get('titles', [App\Http\Controllers\Guest\TitlesController::class, 'index'])
         ->name('titles');
     Route::get('years', [App\Http\Controllers\Guest\YearsController::class, 'index'])

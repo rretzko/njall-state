@@ -7,6 +7,8 @@ use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
 
 class School extends Model
 {
@@ -42,6 +44,37 @@ class School extends Model
         'deleted_at',
     ];
 
+    /**
+     * Return collection of schools by year or student counts in a direction (asc,desc)
+     * @return \Illuminate\Support\Collection
+     */
+    public static function byColumn(\Illuminate\Http\Request $request)
+    {
+        $schools = [];
+        $column = $request['column'];
+        $direction = isset($request['direction']) ? $request['direction'] : 'asc';
+        $pagination = 20;
+        $current_page = $request->input("page") ?? 1;
+        $starting_point = ($current_page * $pagination) - $pagination;
+        $path = $request->url();
+        $query = $request->query();
+
+        foreach(School::all() AS $school){
+
+            $schools[] = [
+                'sort' => DB::table('participants')->where('school_id', $school->id)->distinct('event_id')->count('event_id'),
+                'name' => $school->name,
+                'school' => $school,
+            ];
+        }
+
+        sort($schools);
+
+        $array = array_slice($schools, $starting_point, $pagination, true);
+
+        return new Paginator($array, $pagination, $current_page, ['path' => $path,'query' => $query]);
+    }
+
     public function getEventsAttribute()
     {
         $events = collect();
@@ -71,6 +104,21 @@ class School extends Model
         }
 //$shortname = str_replace('Township', 'Twp', $shortname);
         return $shortname;
+    }
+
+    public function getStudentsCountAttribute()
+    {
+        return DB::table('participants')
+            ->where('school_id', $this->id)
+            ->count('id');
+    }
+
+    public function getYearsCountAttribute()
+    {
+        return DB::table('participants')
+            ->where('school_id', $this->id)
+            ->distinct('event_id')
+            ->count('id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

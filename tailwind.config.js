@@ -5,7 +5,13 @@ module.exports = {
   mode: 'jit',
   purge: {
     enabled: false,
-    content: ['./resources/views/**/*.blade.php', './safelist.txt'],
+    content: [
+        './resources/views/**/*.blade.php', './safelist.txt',
+        './resources/**/*.blade.php',
+        './resources/**/*.js',
+        './resources/**/*.vue',
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+    ],
     options: {
       safelist: []
     }

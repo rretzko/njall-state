@@ -5,10 +5,12 @@ namespace App\Http\Livewire\Templates;
 use App\Models\Conductor;
 use App\Models\Event;
 use App\Models\Participant;
+use App\Models\School;
 use Livewire\Component;
 
 class GlobalSearch extends Component
 {
+    public $searchlist=false;
     public $event;
     public $events;
     public $globalsearch='';
@@ -17,20 +19,72 @@ class GlobalSearch extends Component
 
     public function render()
     {
-        return view('livewire.templates.globalsearch');
+        return view('livewire.templates.globalsearch',
+            [
+                'alphaconductors' => $this->alphaConductors(),
+                'alphaschools' => $this->alphaSchools(),
+            ]);
     }
 
     public function updatedGlobalsearch()
     {
         $this->searchresults = '<ul style="margin-top: 1rem; margin-left: 1rem;">';
 
-        $this->searchresults .= $this->globalsearchParticipants();
+        $this->searchresults .= $this->globalsearchConductors();
 
         $this->searchresults .= $this->globalsearchYears();
 
-        $this->searchresults .= $this->globalsearchConductors();
+        $this->searchresults .= $this->globalsearchParticipants();
 
         $this->searchresults .= '</ul>';
+    }
+
+    private function alphaConductors()
+    {
+        //early exit
+        if(! ($this->searchlist === 'conductors')){ return '';}
+
+        //reset value
+        $this->reset('searchlist');
+
+        $str = '<ul style="margin-left: 1rem;">';
+
+        foreach(Conductor::orderBy('last')->get() AS $conductor){
+
+            $str .= '<li>'
+                . '<a href="/guest/event/'.$conductor->events->first()->id.'" style="color: blue;">'
+                .$conductor->fullnameAlpha
+                . '</a>'
+                .'</li>';
+        }
+
+        $str .= '</ul>';
+
+        return $str;
+    }
+
+    private function alphaSchools()
+    {
+        //early exit
+        if(! ($this->searchlist === 'schools')){ return '';}
+
+        //reset value
+        $this->reset('searchlist');
+
+        $str = '<ul style="margin-left: 1rem;">';
+
+        foreach(School::orderBy('name')->get() AS $school){
+
+            $str .= '<li>'
+                . '<a href="/guest/event/'.$school->id.'" style="color: blue;">'
+                .$school->name
+                . '</a>'
+                .'</li>';
+        }
+
+        $str .= '</ul>';
+
+        return $str;
     }
 
     private function globalSearchConductors()
@@ -45,7 +99,7 @@ class GlobalSearch extends Component
             $eventid = Event::where('year_of', $conductor['eventyear'])->first()->id;
 
             $str .= '<li>'
-                .'<a href="/guest/event/'.$eventid.'/'.$conductor['id'].'"'
+                .'<a href="/guest/event/'.$eventid.'"'
                 .' style="color: blue;" >'
                 .$conductor['fullnamealpha'].' ('.$conductor['eventyear']
                 .')</a>'

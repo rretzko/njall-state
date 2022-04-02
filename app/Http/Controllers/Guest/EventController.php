@@ -17,6 +17,7 @@ class EventController extends Controller
             'event' => $event ?? Event::getCurrentEvent(),
             'events' => Event::orderByDesc('year_of')->get(),
             'participant' => $participant,
+            'searchlist' => false,
         ]);
 
     }
