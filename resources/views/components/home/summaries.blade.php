@@ -1,7 +1,7 @@
 <div id="summaries" style=" display: flex; justify-content: space-between; margin: 2rem;">
     <style>
         .summary-card{
-            background-color: rgba(113,128,150,0.1);
+            background-color: rgba(113,128,150,0.5);
             border: 1px solid lightgrey;
             display: flex;
             flex-direction: column;

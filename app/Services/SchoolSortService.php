@@ -50,7 +50,8 @@ class SchoolSortService
     {
         if((! strlen($this->column)) || ($this->column === 'name')){
 
-            $this->sortAlpha();
+            ($this->direction === 'asc') ? $this->sortAlpha() : $this->sortAlphaReverse();
+
         }else{
 
             $method = 'sort'.ucfirst($this->column).ucfirst($this->direction);
@@ -85,11 +86,50 @@ class SchoolSortService
         $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
     }
 
+    private function sortAlphaReverse()
+    {
+        $raw = [];
+
+        foreach(School::all() AS $school){
+
+            $raw[] = [
+                'sort' => $school->name,
+                'school' => $school,
+            ];
+        }
+
+        rsort($raw);
+
+        $array = array_slice($raw, $this->starting_point, $this->per_page, false);
+
+        $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
+    }
+
+    private function sortYearsAsc()
+    {
+        $raw = [];
+
+        foreach(School::all() as $school){
+
+            $raw[] =[
+              'sort' => $school->yearsCount,
+              'name' => $school->name,
+              'school' => $school,
+            ];
+        }
+
+        sort($raw);
+
+        $array = array_slice($raw, $this->starting_point, $this->per_page, true);
+
+        $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
+    }
+
     private function parseRequest()
-    {//dd($this->request);
+    {
         $this->column = (isset($this->request['column'])) ? $this->request['column'] : false;
         $this->current_page = $this->request->input("page") ?? 1;
-        $this->direction = (isset($this->request['direction'])) ? $this->request['direction'] : 'asc';
+        $this->direction = ($this->request->input('direction') === 'asc') ? 'desc' : 'asc';
         $this->path = $this->request->url();
         $this->query = $this->request->query();
         $this->starting_point = ($this->current_page * $this->per_page) - $this->per_page;

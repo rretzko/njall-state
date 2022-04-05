@@ -19,15 +19,21 @@ class SchoolsController extends Controller
 
     public function index(Request $request)
     {
+        $namedirection = (($request->input('column') === 'name') && ($request->input('direction') === 'asc'))
+            ? 'desc'
+            : 'asc';
+
         return view('guests.schools.index',
             [
                 'active' => 'events',
                 'column' => $request->input('column') ?? 'name',
                 'page' => $request->input('page') ?? 1,
-                'direction' => $request->input('direction') ?? 'asc',
+                'direction' => $request->input('direction') === 'asc' ? 'desc' : 'asc',
                 'event' => $event ?? Event::getCurrentEvent(),
                 'events' => Event::orderByDesc('year_of')->get(),
+                'namedirection' => $namedirection,
                 'participant' => NULL,
+                'pointerdirection' => $request->input('direction'),
                 'searchlist' => 'false',
                 'schools' => $this->schoolsortservice->sort(),
             ]);

@@ -35,7 +35,13 @@
         <div id="page-container" style="margin:0 1rem;">
 
             <div id="banner" style="margin-top: 4rem; display: flex; margin-bottom: 5rem;">
-                <div id="def" style="width: 50%; border-right: 1px solid lightgrey; padding: 0 2rem; font-size: 1.5rem; text-align: justify;">
+                <div id="graphic" style="background-color: transparent; width: 25%; min-width: 360px;">
+                    <img src="../assets/images/nj_shape_white.png" style="width:100%; z-index: 10;"/>
+                    <h2 style="color: gold; z-index: 100; margin-top: -28rem; margin-left: 10rem;">
+                        1949 -<br /> {{ date('Y') - 1 }}
+                    </h2>
+                </div>
+                <div id="def" style=" border-left: 1px solid lightgrey; padding: 0 2rem; font-size: 1.5rem; text-align: justify;">
                     <p>
                         The history of the New Jersey All-State Chorus begins in 1929 and continues to this day.
                     </p>
@@ -46,12 +52,7 @@
                         Educators Association for their students.
                     </p>
                 </div>
-                <div id="graphic" style="background-color: transparent; width: 50%; ">
-                    <img src="../assets/images/nj_shape_white.png" style="height:100%; z-index: 10;"/>
-                    <h2 style="color: gold; z-index: 100; margin-top: -13rem; margin-left: 3rem;">
-                        1949 - {{ date('Y') - 1 }}
-                    </h2>
-                </div>
+
             </div><!-- end of banner -->
 
             <x-home.summaries />
