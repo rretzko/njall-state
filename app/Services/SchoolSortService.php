@@ -105,6 +105,58 @@ class SchoolSortService
         $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
     }
 
+    private function sortStudentsAsc()
+    {
+        $raw = [];
+
+        foreach(School::all() as $school){
+
+            $raw[] =[
+              'sort' => $school->studentsCount,
+              'name' => $school->name,
+              'school' => $school,
+            ];
+        }
+
+        sort($raw);
+
+        $array = array_slice($raw, $this->starting_point, $this->per_page, true);
+
+        $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
+    }
+
+    private function sortStudentsDesc()
+    {
+        $raw = [];
+
+        //pull all schools
+        foreach(School::all() as $school){
+
+            $raw[] =[
+                'sort' => $school->studentsCount,
+                'name' => $school->name,
+                'school' => $school,
+            ];
+        }
+
+        //break $raw into independently sortable segments
+        $years = [];
+        $names = [];
+        foreach($raw AS $key => $row){
+            $years[$key] = $row['sort'];
+            $names[$key] = $row['name'];
+        }
+
+        //sort years descending, names ascending
+        array_multisort($years, SORT_DESC, SORT_NUMERIC, $names, SORT_ASC, SORT_STRING, $raw);
+
+        //pull appropriate slide of sorted array
+        $array = array_slice($raw, $this->starting_point, $this->per_page, true);
+
+        //create paginator
+        $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
+    }
+
     private function sortYearsAsc()
     {
         $raw = [];
@@ -112,9 +164,9 @@ class SchoolSortService
         foreach(School::all() as $school){
 
             $raw[] =[
-              'sort' => $school->yearsCount,
-              'name' => $school->name,
-              'school' => $school,
+                'sort' => $school->yearsCount,
+                'name' => $school->name,
+                'school' => $school,
             ];
         }
 

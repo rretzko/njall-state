@@ -45,6 +45,8 @@ Route::group([
 
     Route::get('schools/', [App\Http\Controllers\Guest\SchoolsController::class, 'index'])
         ->name('schools');
+    Route::post('schools/search', [App\Http\Controllers\Guest\SchoolsController::class, 'show'])
+        ->name('schoolssearch');
 
     Route::get('titles', [App\Http\Controllers\Guest\TitlesController::class, 'index'])
         ->name('titles');

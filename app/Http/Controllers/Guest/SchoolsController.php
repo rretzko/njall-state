@@ -23,6 +23,10 @@ class SchoolsController extends Controller
             ? 'desc'
             : 'asc';
 
+        $studentsdirection = (($request->input('column') === 'students') && ($request->input('direction') === 'asc'))
+            ? 'desc'
+            : 'asc';
+
         $yearsdirection = (($request->input('column') === 'years') && ($request->input('direction') === 'asc'))
             ? 'desc'
             : 'asc';
@@ -40,7 +44,32 @@ class SchoolsController extends Controller
                 'pointerdirection' => $request->input('direction'),
                 'searchlist' => 'false',
                 'schools' => $this->schoolsortservice->sort(),
+                'schoolstotalcount' => School::all()->count(),
+                'studentsdirection' => $studentsdirection,
                 'yearsdirection' => $yearsdirection,
+            ]);
+    }
+
+    public function show(Request $request)
+    {
+        $schools = School::where('name', 'LIKE', '%'.$request['search'].'%')->get();
+
+        return view('guests.schools.index',
+            [
+                'active' => 'events',
+                'column' => $request->input('column') ?? 'name',
+                'page' => $request->input('page') ?? 1,
+                'direction' => $request->input('direction') === 'asc' ? 'desc' : 'asc',
+                'event' => $event ?? Event::getCurrentEvent(),
+                'events' => Event::orderByDesc('year_of')->get(),
+                'namedirection' => 'asc',
+                'participant' => NULL,
+                'pointerdirection' => $request->input('direction'),
+                'searchlist' => 'false',
+                'schools' => $schools,
+                'schoolstotalcount' => $schools->count(),
+                'studentsdirection' => 'asc',
+                'yearsdirection' => 'asc',
             ]);
     }
 }
