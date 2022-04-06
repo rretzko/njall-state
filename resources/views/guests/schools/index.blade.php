@@ -50,7 +50,7 @@
                                         </a>
                                     </th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold " style="width: 15%;">
-                                        <a href="{{ route('guest.schools', ['column' => 'years', 'direction' => 'asc'])  }}"
+                                        <a href="{{ route('guest.schools', ['column' => 'years', 'direction' => $yearsdirection])  }}"
                                            class="group inline-flex"
                                            style="@if($column === 'years') color: blue @else color: black @endif"
                                         >
@@ -58,10 +58,17 @@
                                             <!-- Active: "bg-gray-200 text-gray-900 group-hover:bg-gray-300", Not Active: "invisible text-gray-400 group-hover:visible group-focus:visible" -->
                                             <span class="ml-2 flex-none rounded bg-gray-200 group-hover:bg-gray-300"
                                                 style="@if($column === 'years') color: blue @else color: black @endif">
-                      <!-- Heroicon name: solid/chevron-down -->
-                      <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                      </svg>
+                       <!-- Heroicon name: solid/chevron-down -->
+                    @if(($column === 'years') && ($direction === 'asc'))
+                                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                                                @else
+                                                <!-- Heroicon name: solid chevron-down -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
+                        </svg>
+                                                @endif
                     </span>
                                         </a>
                                     </th>

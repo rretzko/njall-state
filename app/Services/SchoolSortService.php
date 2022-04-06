@@ -125,6 +125,38 @@ class SchoolSortService
         $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
     }
 
+    private function sortYearsDesc()
+    {
+        $raw = [];
+
+        //pull all schools
+        foreach(School::all() as $school){
+
+            $raw[] =[
+                'sort' => $school->yearsCount,
+                'name' => $school->name,
+                'school' => $school,
+            ];
+        }
+
+        //break $raw into independently sortable segments
+        $years = [];
+        $names = [];
+        foreach($raw AS $key => $row){
+            $years[$key] = $row['sort'];
+            $names[$key] = $row['name'];
+        }
+
+        //sort years descending, names ascending
+        array_multisort($years, SORT_DESC, SORT_NUMERIC, $names, SORT_ASC, SORT_STRING, $raw);
+
+        //pull appropriate slide of sorted array
+        $array = array_slice($raw, $this->starting_point, $this->per_page, true);
+
+        //create paginator
+        $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
+    }
+
     private function parseRequest()
     {
         $this->column = (isset($this->request['column'])) ? $this->request['column'] : false;

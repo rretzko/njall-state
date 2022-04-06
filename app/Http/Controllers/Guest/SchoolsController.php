@@ -23,6 +23,10 @@ class SchoolsController extends Controller
             ? 'desc'
             : 'asc';
 
+        $yearsdirection = (($request->input('column') === 'years') && ($request->input('direction') === 'asc'))
+            ? 'desc'
+            : 'asc';
+
         return view('guests.schools.index',
             [
                 'active' => 'events',
@@ -36,6 +40,7 @@ class SchoolsController extends Controller
                 'pointerdirection' => $request->input('direction'),
                 'searchlist' => 'false',
                 'schools' => $this->schoolsortservice->sort(),
+                'yearsdirection' => $yearsdirection,
             ]);
     }
 }
