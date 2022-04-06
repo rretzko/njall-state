@@ -117,7 +117,11 @@
                                     @foreach($schools AS $school)
 
                                         <tr style="{{ $loop->odd ? 'background-color: rgba(0,0,0,0.1)' : '' }}">
-                                            <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ $school->name }}</td>
+                                            <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                <a href="{{ route('guest.school', $school) }}" style="color: blue;">
+                                                    {{ $school->name }}
+                                                </a>
+                                            </td>
                                             <td class="whitespace-nowrap px-3 py-2 text-sm text-center">{{ $school->yearsCount }}</td>
                                             <td class="whitespace-nowrap px-3 py-2 text-sm text-center">{{ $school->studentsCount }}</td>
                                         </tr>                                        </tr>
