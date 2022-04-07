@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
+use App\Models\School;
 use Illuminate\Http\Request;
 
 class SchoolController extends Controller
@@ -41,12 +43,35 @@ class SchoolController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\School $school
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(School $school)
     {
-        //
+        return view('guests.schools.school.show',
+        [
+            'events' => $school->years,
+            'participants' => $school->years->first()->schoolParticipants($school),
+            'school' => $school,
+            'searchlist' => '',
+        ]);
+    }
+
+    /**
+     * Same as show() except add students collection to payload
+     * @param School $school
+     * @param Event $event
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function showParticipants(School $school, Event $event)
+    {
+        return view('guests.schools.school.show',
+            [
+                'events' => $school->years,
+                'school' => $school,
+                'searchlist' => '',
+                'participants' => $event->schoolParticipants($school),
+            ]);
     }
 
     /**

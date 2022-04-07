@@ -113,6 +113,17 @@ class School extends Model
             ->count('id');
     }
 
+    public function getYearsAttribute()
+    {
+        $eventids = DB::table('participants')
+            ->where('school_id', $this->id)
+            ->distinct('event_id')
+            ->pluck('event_id')
+            ->toArray();
+
+        return Event::find($eventids)->sortByDesc('year_of');
+    }
+
     public function getYearsCountAttribute()
     {
         return DB::table('participants')

@@ -57,6 +57,31 @@ class Event extends Model
         return $this->belongsToMany(Ensemble::class)->orderBy('order_by');
     }
 
+    public function getConductorsCsvAttribute()
+    {
+        $noconductor = 'No conductor found';
+
+        $conductors = $this->conductors();
+        //early exits
+        if(! $conductors){ return $noconductor;}
+
+        if(($conductors->count() === 1) &&
+            $conductors->first()->id &&
+            strlen($conductors->first()->name)){
+            return $conductors->first()->name;
+        }
+
+        $a = [];
+        foreach($conductors AS $conductor){
+
+            if(! $conductor){ return $noconductor;}
+
+            $a[] = $conductor->name;
+        }
+
+        return implode(';', $a);
+    }
+
     public static function getCurrentEvent()
     {
         return Event::orderByDesc('year_of')->first();
@@ -70,6 +95,20 @@ class Event extends Model
     public function participants()
     {
         return $this->belongsToMany(Participant::class)->orderBy('order_by');
+    }
+
+    public function schoolParticipantCount(School $school)
+    {
+        return $this->schoolParticipants($school)->count();
+    }
+
+    public function schoolParticipants(School $school)
+    {
+        return Participant::where('school_id', $school->id)
+            ->where('event_id', $this->id)
+            ->orderBy('last')
+            ->orderBy('first')
+            ->get();
     }
 
     protected function serializeDate(DateTimeInterface $date)

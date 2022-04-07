@@ -43,8 +43,11 @@ Route::group([
     Route::get('participants', [App\Http\Controllers\Guest\ParticipantsController::class, 'index'])
         ->name('participants');
 
-    Route::get('school/{$school}', [App\Http\Controllers\Guest\SchoolController::class, 'show'])
-        ->name('school');
+    Route::get('myschool/{school}', [App\Http\Controllers\Guest\SchoolController::class, 'show'])
+        ->name('myschool');
+
+    Route::get('mystudents/{school}/{event}', [App\Http\Controllers\Guest\SchoolController::class, 'showParticipants'])
+        ->name('mystudents');
 
     Route::get('schools/', [App\Http\Controllers\Guest\SchoolsController::class, 'index'])
         ->name('schools');

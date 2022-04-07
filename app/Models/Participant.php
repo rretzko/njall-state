@@ -55,6 +55,22 @@ class Participant extends Model
         return $this->belongsTo(Event::class);
     }
 
+    /**
+     * NOTE: This is an approximate function which relies on
+     * the matching of first/last names and school_id
+     */
+    public function events()
+    {
+        $ids = \Illuminate\Support\Facades\DB::table('participants')
+            ->where('school_id', $this->school_id)
+            ->where('first', $this->first)
+            ->where('last', $this->last)
+            ->pluck('event_id')
+            ->toArray();
+
+        return Event::find($ids);
+    }
+
     public function getFullnameAttribute()
     {
         return $this->first.' '.$this->last;
@@ -73,6 +89,17 @@ class Participant extends Model
     public function school()
     {
         return $this->belongsTo(School::class);
+    }
+
+    public function yearsCsv()
+    {
+        $a = [];
+        foreach($this->events() AS $event){
+
+            $a[] = $event->year_of;
+        }
+
+        return implode(',', $a);
     }
 
     protected function serializeDate(DateTimeInterface $date)

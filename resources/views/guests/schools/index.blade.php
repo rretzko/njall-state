@@ -118,7 +118,7 @@
 
                                         <tr style="{{ $loop->odd ? 'background-color: rgba(0,0,0,0.1)' : '' }}">
                                             <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                <a href="{{ route('guest.school', $school) }}" style="color: blue;">
+                                                <a href="{{ route('guest.myschool', $school) }}" style="color: blue;">
                                                     {{ $school->name }}
                                                 </a>
                                             </td>
