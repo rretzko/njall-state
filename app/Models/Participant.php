@@ -96,7 +96,7 @@ class Participant extends Model
         $a = [];
         foreach($this->events() AS $event){
 
-            $a[] = $event->year_of;
+            $a[] = '<a href="/guest/event/'.$event->id.'" style="color: blue;">'.$event->year_of.'</a>';
         }
 
         return implode(',', $a);

@@ -25,7 +25,7 @@
                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
 
                             {{-- SEARCH --}}
-                            <div class="my-2">
+                            <div class="my-2 ml-4 mb-6">
 
                                 <form method="post" action="{{ route('guest.schoolssearch') }}">
 
@@ -42,9 +42,9 @@
                             <style>
                                 td,th{border: 1px solid black; padding: 0 0.25rem;}
                             </style>
-                            <div class="flex flex-row flex-wrap ">
+                            <div class="flex flex-row flex-wrap">
                                 {{-- SCHOOL YEARS TABLE --}}
-                                <div>
+                                <div class=" ml-4 mb-6">
                                     <table class="mr-6">
                                         <thead>
                                         <tr>
@@ -79,7 +79,7 @@
                                 </div>
 
                                 {{-- SCHOOL PARTICIPANTS TABLE --}}
-                                <div>
+                                <div class="ml-4 mb-6">
                                     <table>
                                         <thead>
                                         <tr>
@@ -95,11 +95,7 @@
                                                 <td>{{ $participant->event->year_of }}</td>
                                                 <td>{{ $participant->fullNameAlpha }}</td>
                                                 <td class="text-center">{{ $participant->instrumentation->descr }}</td>
-                                                <td class="text-center">
-                                                    <a href="{{ route('guest.event', $participant->event) }}" style="color: blue;">
-                                                        {{ $participant->yearsCsv() }}
-                                                    </a>
-                                                </td>
+                                                <td class="text-center">{!! $participant->yearsCsv() !!}</td>
                                             </tr>
                                         @empty
                                             <tr>
