@@ -80,6 +80,22 @@ class Composition extends Model
         return $this->events()->count();
     }
 
+    public function getPerformanceYearsCsvAttribute(): string
+    {
+        $a = [];
+
+        foreach ($this->events as $event) {
+            if($event) {
+                $link = '\guest\event\\'.$event->id;
+                $a[] = '<a href="'.$link.'" style="color: blue;">'
+                    . $event->year_of
+                    . '</a>';
+            }
+        }
+
+        return implode(',',$a);
+    }
+
     public function getWordsandmusicAttribute()
     {
         return $this->belongsToMany(Artist::class)

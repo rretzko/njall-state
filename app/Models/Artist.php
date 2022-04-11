@@ -37,6 +37,21 @@ class Artist extends Model
         'deleted_at',
     ];
 
+    public function artisttype()
+    {
+        return $this->belongsToMany(Artisttype::class);
+    }
+
+    public function artisttypeAbbr($artisttype_id)
+    {
+        return Artisttype::find($artisttype_id)->abbr;
+    }
+
+    public function artisttypeDescr($artisttype_id)
+    {
+        return Artisttype::find($artisttype_id)->descr;
+    }
+
     public function compositions()
     {
         return $this->belongsToMany(Composition::class);

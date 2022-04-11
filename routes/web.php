@@ -56,6 +56,9 @@ Route::group([
 
     Route::get('titles', [App\Http\Controllers\Guest\TitlesController::class, 'index'])
         ->name('titles');
+    Route::post('titles/search', [App\Http\Controllers\Guest\TitlesController::class, 'show'])
+        ->name('titlessearch');
+
     Route::get('years', [App\Http\Controllers\Guest\YearsController::class, 'index'])
         ->name('years');
 });
