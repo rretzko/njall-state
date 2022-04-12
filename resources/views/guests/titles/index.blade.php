@@ -69,7 +69,7 @@
                                         Artists
                                     </th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold " style="width: 15%;">
-                                        <a href="{{ route('guest.schools', ['column' => 'performed', 'direction' => $performeddirection])  }}"
+                                        <a href="{{ route('guest.titles', ['column' => 'performed', 'direction' => $performeddirection])  }}"
                                            class="group inline-flex"
                                            style="@if($column === 'students') color: blue @else color: black @endif"
                                         >

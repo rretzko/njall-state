@@ -102,16 +102,15 @@ class CompositionSortService
         $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
     }
 
-    private function sortStudentsAsc()
+    private function sortPerformedAsc()
     {
         $raw = [];
 
-        foreach(School::all() as $school){
+        foreach(Composition::orderByDesc('title')->get() AS $composition){
 
-            $raw[] =[
-              'sort' => $school->studentsCount,
-              'name' => $school->name,
-              'school' => $school,
+            $raw[] = [
+                'sort' => $composition->performanceCount,
+                'composition' => $composition,
             ];
         }
 
@@ -122,30 +121,29 @@ class CompositionSortService
         $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
     }
 
-    private function sortStudentsDesc()
+    private function sortPerformedDesc()
     {
         $raw = [];
 
-        //pull all schools
-        foreach(School::all() as $school){
+        //pull all compositions
+        foreach(Composition::orderByDesc('title')->get() AS $composition){
 
-            $raw[] =[
-                'sort' => $school->studentsCount,
-                'name' => $school->name,
-                'school' => $school,
+            $raw[] = [
+                'sort' => $composition->performanceCount,
+                'composition' => $composition,
             ];
         }
 
         //break $raw into independently sortable segments
         $years = [];
-        $names = [];
+        $titles = [];
         foreach($raw AS $key => $row){
             $years[$key] = $row['sort'];
-            $names[$key] = $row['name'];
+            $titles[$key] = $row['composition'];
         }
 
         //sort years descending, names ascending
-        array_multisort($years, SORT_DESC, SORT_NUMERIC, $names, SORT_ASC, SORT_STRING, $raw);
+        array_multisort($years, SORT_DESC, SORT_NUMERIC, $titles, SORT_ASC, SORT_STRING, $raw);
 
         //pull appropriate slide of sorted array
         $array = array_slice($raw, $this->starting_point, $this->per_page, true);

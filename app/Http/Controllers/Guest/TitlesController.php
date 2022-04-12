@@ -36,9 +36,12 @@ class TitlesController extends Controller
             $titledirection = 'desc';
         }
 
+        if((! isset($request['direction'])) || (isset($request['column']) && ($request['column'] === 'performed') && ($request['direction'] === 'desc'))){
+            $performeddirection = 'asc';
+        }else{
+            $performeddirection = 'desc';
+        }
 
-//$first = $compositions->first();
-//dd($first->events->first());
         return view('guests.titles.index',
             [
                 'active' => 'events',
@@ -47,13 +50,34 @@ class TitlesController extends Controller
                 'direction' =>  $request->input('direction') === 'asc' ? 'desc' : 'asc',
                 'event' => Event::getCurrentEvent(),//$event ??
                 'events' => Event::orderByDesc('year_of')->get(),
-                'titledirection' => $titledirection,
+                'performeddirection' => $performeddirection,
                 'pointerdirection' => $request->input('direction') ?? 'asc',
                 'searchlist' => 'false',
+                'titledirection' => $titledirection,
                 'compositions' => $this->compositionsortservice->sort(),
                 'compositionstotalcount' => Composition::all()->count(),
-                'performeddirection' => 'asc',
             ]
         );
+    }
+
+    public function show(Request $request)
+    {
+        $compositions = Composition::where('title', 'LIKE', '%'.$request['search'].'%')->get();
+
+        return view('guests.titles.index',
+            [
+                'active' => 'events',
+                'column' => $request->input('column') ?? 'title',
+                'page' =>  $request->input('page') ?? 1,
+                'direction' =>  $request->input('direction') === 'asc' ? 'desc' : 'asc',
+                'event' => Event::getCurrentEvent(),//$event ??
+                'events' => Event::orderByDesc('year_of')->get(),
+                'performeddirection' => 'asc',
+                'pointerdirection' => 'asc',
+                'searchlist' => 'false',
+                'titledirection' => 'asc',
+                'compositions' => $compositions,
+                'compositionstotalcount' => $compositions->count(),
+            ]);
     }
 }
