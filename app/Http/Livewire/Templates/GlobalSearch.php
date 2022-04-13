@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Templates;
 
+use App\Models\Composition;
 use App\Models\Conductor;
 use App\Models\Event;
 use App\Models\Participant;
@@ -35,6 +36,8 @@ class GlobalSearch extends Component
         $this->searchresults .= $this->globalsearchYears();
 
         $this->searchresults .= $this->globalsearchParticipants();
+
+        $this->searchresults .= $this->globalsearchTitles();
 
         $this->searchresults .= '</ul>';
     }
@@ -154,6 +157,22 @@ class GlobalSearch extends Component
         return $str;
     }
 
+    private function globalSearchTitles()
+    {
+        $titles = $this->searchTitles();
+
+        //display label if participants are found
+        $str = count($titles) ? '<li><b>Titles</b></li>' : '';
+
+        foreach($titles AS $title) {
+
+            $str .= '<li>'
+                . $title['title'] . '(' . $title['years'] . ')</li>';
+        }
+
+        return $str;
+    }
+
     private function searchConductors() : array
     {
         //early exit
@@ -192,6 +211,29 @@ class GlobalSearch extends Component
                 'id' => $participant->id,
                 'fullnamealpha' => $participant->fullnameAlpha,
                 'eventyear' => $participant->event->year_of
+            ];
+        }
+
+        sort($a);
+
+        return $a;
+    }
+
+    private function searchTitles() : array
+    {
+        //early exit
+        if(! strlen($this->globalsearch)){ return [];}
+
+        $a = [];
+
+        foreach(Composition::where('title', 'LIKE', '%'.$this->globalsearch.'%')
+                    ->get() AS $composition) {
+
+            $a[] = [
+                'sortby' => $composition->title.$composition->yearsCsv,
+                'id' => $composition->id,
+                'title' => $composition->title,
+                'years' => $composition->performanceYearsCsv
             ];
         }
 

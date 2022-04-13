@@ -6,6 +6,17 @@
 
         <title>NJ All-State History</title>
 
+        <!-- ATTRIBUTIONS
+   \*******************************************************************************************************
+   We would like to thank the following for their contributions to this project:
+   - Barbara Retzko for her unconditional support and love.
+   - Sidney Volmar for her assistance in the page styling
+   - Taylor Otwell for his wonderful Laravel
+   - Caleb Porzio for his wonderful Livewire and Alpine.js
+   - Povilas Korop for his worderful QuickAdminPanel and ongoing generous contributions to the Laravel community
+   \*******************************************************************************************************
+   -->
+
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
