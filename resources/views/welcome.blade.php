@@ -46,11 +46,9 @@
         <div id="page-container" style="margin:0 1rem;">
 
             <div id="banner" style="margin-top: 4rem; display: flex; margin-bottom: 5rem;">
-                <div id="graphic" style="background-color: transparent; width: 25%; min-width: 360px;">
-                    <img src="../assets/images/nj_shape_white.png" style="width:100%; z-index: 10;"/>
-                    <h2 style="color: gold; z-index: 100; margin-top: -28rem; margin-left: 10rem;">
-                        1949 -<br /> {{ date('Y') - 1 }}
-                    </h2>
+                <div id="graphic" style="background-color: transparent; width: 20%; min-width: 360px;">
+                    <img src="../assets/images/logo_NJ.jpg" style="width:100%; z-index: 10;"/>
+
                 </div>
                 <div id="def" style=" border-left: 1px solid lightgrey; padding: 0 2rem; font-size: 1.5rem; text-align: justify;">
                     <p>
