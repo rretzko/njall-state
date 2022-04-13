@@ -20,23 +20,17 @@ class TitlesController extends Controller
 
     public function index(Request $request)
     {
-        if(isset($request['column']) && isset($request['direction'])){
-            if(($request['column'] === 'titles') && ($request['direction'] === 'desc')){
-                $compositions = Composition::orderByDesc('title')->with('artists')->paginate(15);
-            }else{
-                $compositions = Composition::orderBy('title')->with('artists')->paginate(15);
-            }
-        }else{
-            $compositions = Composition::orderBy('title')->with('artists')->paginate(15);
-        }
+        if((! isset($request['direction'])) ||
+            (isset($request['column']) && ($request['column'] === 'titles') && ($request['direction'] === 'desc'))){
 
-        if((! isset($request['direction'])) || (isset($request['column']) && ($request['column'] === 'titles') && ($request['direction'] === 'desc'))){
             $titledirection = 'asc';
         }else{
             $titledirection = 'desc';
         }
 
-        if((! isset($request['direction'])) || (isset($request['column']) && ($request['column'] === 'performed') && ($request['direction'] === 'desc'))){
+        if((! isset($request['direction'])) ||
+            (isset($request['column']) && ($request['column'] === 'performed') && ($request['direction'] === 'desc'))){
+
             $performeddirection = 'asc';
         }else{
             $performeddirection = 'desc';
@@ -50,9 +44,10 @@ class TitlesController extends Controller
                 'direction' =>  $request->input('direction') === 'asc' ? 'desc' : 'asc',
                 'event' => Event::getCurrentEvent(),//$event ??
                 'events' => Event::orderByDesc('year_of')->get(),
+                'maxpage' => $this->compositionsortservice->maxPage(),
                 'performeddirection' => $performeddirection,
                 'pointerdirection' => $request->input('direction') ?? 'asc',
-                'searchlist' => 'false',
+                'searchlist' => isset($request['search']) ? $request['search'] : null,
                 'titledirection' => $titledirection,
                 'compositions' => $this->compositionsortservice->sort(),
                 'compositionstotalcount' => Composition::all()->count(),
@@ -62,7 +57,7 @@ class TitlesController extends Controller
 
     public function show(Request $request)
     {
-        $compositions = Composition::where('title', 'LIKE', '%'.$request['search'].'%')->get();
+        $compositions = $this->compositionsortservice->sort();
 
         return view('guests.titles.index',
             [
@@ -72,12 +67,13 @@ class TitlesController extends Controller
                 'direction' =>  $request->input('direction') === 'asc' ? 'desc' : 'asc',
                 'event' => Event::getCurrentEvent(),//$event ??
                 'events' => Event::orderByDesc('year_of')->get(),
+                'maxpage' => $this->compositionsortservice->maxPage(),
                 'performeddirection' => 'asc',
                 'pointerdirection' => 'asc',
-                'searchlist' => 'false',
+                'searchlist' => isset($request['search']) ? $request['search'] : '',
                 'titledirection' => 'asc',
                 'compositions' => $compositions,
-                'compositionstotalcount' => $compositions->count(),
+                'compositionstotalcount' => $this->compositionsortservice->totalCount(),
             ]);
     }
 }

@@ -71,12 +71,12 @@
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold " style="width: 15%;">
                                         <a href="{{ route('guest.titles', ['column' => 'performed', 'direction' => $performeddirection])  }}"
                                            class="group inline-flex"
-                                           style="@if($column === 'students') color: blue @else color: black @endif"
+                                           style="@if($column === 'performed') color: blue @else color: black @endif"
                                         >
                                             Performed
                                             <!-- Active: "bg-gray-200 text-gray-900 group-hover:bg-gray-300", Not Active: "invisible text-gray-400 group-hover:visible group-focus:visible" -->
                                             <span class="ml-2 flex-none rounded bg-gray-200 group-hover:bg-gray-300"
-                                                  style="@if($column === 'students') color: blue @else color: black @endif">
+                                                  style="@if($column === 'performed') color: blue @else color: black @endif">
                        <!-- Heroicon name: solid/chevron-down -->
                     @if(($column === 'students') && ($direction === 'asc'))
                                                     <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -101,9 +101,7 @@
 
                                     <tr style="{{ $loop->odd ? 'background-color: rgba(0,0,0,0.1)' : '' }}">
                                         <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                            <a href="{{ route('guest.myschool', $composition) }}" style="color: blue;">
                                                 {{ $composition->title }}
-                                            </a>
                                         </td>
                                         <td class="whitespace-nowrap px-3 py-2 text-sm text-left">
                                             <div class="flex flex-col">
@@ -121,20 +119,26 @@
                             </table>
 
                             <div class="flex justify-between px-4">
-                                <div>
-                                    <a href="{{ route('guest.titles',['column' => $column,'direction' => $pointerdirection, 'page' => ($page - 1)]) }}">
-                                        <button class="rounded-full px-2" style="background-color: rgba(0,0,0,0.2);">
-                                            &larr; Prev
-                                        </button>
-                                    </a>
-                                </div>
-                                <div class="mb-2">
-                                    <a href="{{ route('guest.titles',['column' => $column,'direction' => $pointerdirection, 'page' => ($page + 1)]) }}">
-                                        <button class="rounded-full px-2" style="background-color: rgba(0,0,0,0.2);">
-                                            Next &rarr;
-                                        </button>
-                                    </a>
-                                </div>
+
+                                    <div>
+                                        <a href="{{ route('guest.titles',['column' => $column,'direction' => $pointerdirection, 'page' => ($page - 1), 'search' => $searchlist]) }}"
+                                            class="@if(($page - 1) === 0)" hidden @endif "
+                                        >
+                                            <button class="rounded-full px-2" style="background-color: rgba(0,0,0,0.2);">
+                                                &larr; Prev
+                                            </button>
+                                        </a>
+                                    </div>
+                                    <div class="mb-2">
+                                        <a href="{{ route('guest.titles',['column' => $column,'direction' => $pointerdirection, 'page' => ($page + 1), 'search' => $searchlist]) }}"
+                                            class="@if($page == $maxpage) hidden @endif "
+                                        >
+                                            <button class="rounded-full px-2" style="background-color: rgba(0,0,0,0.2);">
+                                                Next &rarr;
+                                            </button>
+                                        </a>
+                                    </div>
+
                             </div>
 
                         </div>

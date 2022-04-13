@@ -11,6 +11,7 @@ use Illuminate\Pagination\Paginator;
 class CompositionSortService
 {
     private $column;
+    private $compositions;
     private $current_page;
     private $direction;
     private $paginator;
@@ -18,12 +19,14 @@ class CompositionSortService
     private $per_page;
     private $query;
     private $request;
-    private $compositions;
+    private $search;
     private $starting_point;
+    private $totalcount;
 
     public function __construct(Request $request)
     {
         $this->column = '';
+        $this->compositions = collect();
         $this->current_page = 1;
         $this->direction = 'asc';
         $this->paginator = NULL;
@@ -31,8 +34,9 @@ class CompositionSortService
         $this->per_page = 20;
         $this->query = '';
         $this->request = $request;
-        $this->compositions = collect();
+        $this->search = '';
         $this->starting_point = 0;
+        $this->totalcount = 0;
 
         $this->parseRequest();
         $this->selectSortType();
@@ -42,29 +46,73 @@ class CompositionSortService
     /**
      * Return a custom paginator for compositions in various sort orders
      */
+    public function maxPage()
+    {
+        return $this->calcMaxPage();
+    }
+
     public function sort()
     {
         return $this->compositions;
     }
 
+    public function totalCount()
+    {
+        return $this->totalcount;
+    }
+
+/** END OF PUBLIC FUNCTIONS  ******************************************************************************************/
+
+    private function calcMaxPage()
+    {
+        return (ceil($this->totalcount / $this->per_page));
+    }
+
+    private function parseRequest()
+    {
+        $this->column = (isset($this->request['column'])) ? $this->request['column'] : false;
+        $this->current_page = $this->request->input("page") ?? 1;
+        $this->direction = ($this->request->input('direction') === 'asc') ? 'desc' : 'asc';
+        $this->path = $this->request->url();
+        $this->query = $this->request->query();
+        $this->search = isset($this->request['search']) ? $this->request['search'] : '';
+        $this->starting_point = ($this->current_page * $this->per_page) - $this->per_page;
+    }
+
+    private function searchAlpha()
+    {
+        $raw = [];
+
+        foreach(Composition::where('title', 'LIKE', '%'.$this->search.'%')->orderBy('title')->get() AS $composition){
+
+            $raw[] = [
+                'sort' => $composition->title,
+                'composition' => $composition,
+            ];
+        }
+
+        $this->totalcount = count($raw);
+
+        $array = array_slice($raw, $this->starting_point, $this->per_page, true);
+
+        $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
+    }
+
     private function selectSortType()
     {
-        if((! strlen($this->column)) || ($this->column === 'titles')){
+        if(strlen($this->search) ){
+
+            $this->searchAlpha();
+
+        }elseif((! strlen($this->column)) || ($this->column === 'titles')){
 
             ($this->direction === 'asc') ? $this->sortAlpha() : $this->sortAlphaReverse();
 
         }else{
 
             $method = 'sort'.ucfirst($this->column).ucfirst($this->direction);
+
             $this->$method();
-        }
-    }
-
-    private function stripCompositions()
-    {
-        foreach($this->paginator->items() AS $item){
-
-            $this->compositions->push($item['composition']);
         }
     }
 
@@ -79,6 +127,8 @@ class CompositionSortService
                 'composition' => $composition,
             ];
         }
+
+        $this->totalcount = count($raw);
 
         $array = array_slice($raw, $this->starting_point, $this->per_page, true);
 
@@ -97,6 +147,8 @@ class CompositionSortService
             ];
         }
 
+        $this->totalcount = count($raw);
+
         $array = array_slice($raw, $this->starting_point, $this->per_page, false);
 
         $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
@@ -114,6 +166,8 @@ class CompositionSortService
             ];
         }
 
+        $this->totalcount = count($raw);
+
         sort($raw);
 
         $array = array_slice($raw, $this->starting_point, $this->per_page, true);
@@ -126,7 +180,7 @@ class CompositionSortService
         $raw = [];
 
         //pull all compositions
-        foreach(Composition::orderByDesc('title')->get() AS $composition){
+        foreach (Composition::orderByDesc('title')->get() as $composition) {
 
             $raw[] = [
                 'sort' => $composition->performanceCount,
@@ -134,10 +188,12 @@ class CompositionSortService
             ];
         }
 
+        $this->totalcount = count($raw);
+
         //break $raw into independently sortable segments
         $years = [];
         $titles = [];
-        foreach($raw AS $key => $row){
+        foreach ($raw as $key => $row) {
             $years[$key] = $row['sort'];
             $titles[$key] = $row['composition'];
         }
@@ -152,66 +208,11 @@ class CompositionSortService
         $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
     }
 
-    private function sortYearsAsc()
+    private function stripCompositions()
     {
-        $raw = [];
+        foreach($this->paginator->items() AS $item){
 
-        foreach(School::all() as $school){
-
-            $raw[] =[
-                'sort' => $school->yearsCount,
-                'name' => $school->name,
-                'school' => $school,
-            ];
+            $this->compositions->push($item['composition']);
         }
-
-        sort($raw);
-
-        $array = array_slice($raw, $this->starting_point, $this->per_page, true);
-
-        $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
     }
-
-    private function sortYearsDesc()
-    {
-        $raw = [];
-
-        //pull all schools
-        foreach(School::all() as $school){
-
-            $raw[] =[
-                'sort' => $school->yearsCount,
-                'name' => $school->name,
-                'school' => $school,
-            ];
-        }
-
-        //break $raw into independently sortable segments
-        $years = [];
-        $names = [];
-        foreach($raw AS $key => $row){
-            $years[$key] = $row['sort'];
-            $names[$key] = $row['name'];
-        }
-
-        //sort years descending, names ascending
-        array_multisort($years, SORT_DESC, SORT_NUMERIC, $names, SORT_ASC, SORT_STRING, $raw);
-
-        //pull appropriate slide of sorted array
-        $array = array_slice($raw, $this->starting_point, $this->per_page, true);
-
-        //create paginator
-        $this->paginator = new Paginator($array, $this->per_page, $this->current_page, ['path' => $this->path, 'query' => $this->query]);
-    }
-
-    private function parseRequest()
-    {
-        $this->column = (isset($this->request['column'])) ? $this->request['column'] : false;
-        $this->current_page = $this->request->input("page") ?? 1;
-        $this->direction = ($this->request->input('direction') === 'asc') ? 'desc' : 'asc';
-        $this->path = $this->request->url();
-        $this->query = $this->request->query();
-        $this->starting_point = ($this->current_page * $this->per_page) - $this->per_page;
-    }
-
 }
