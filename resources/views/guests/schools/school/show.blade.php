@@ -27,7 +27,7 @@
                             {{-- SEARCH --}}
                             <div class="my-2 ml-4 mb-6">
 
-                                <form method="post" action="{{ route('guest.schoolssearch') }}">
+                                <form method="post" action="https://njall-state.com/schools/search" > {{-- action="{{ route('guest.schoolssearch') }}"> --}}
 
                                     @csrf
 
