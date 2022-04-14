@@ -25,10 +25,23 @@ class LoginController extends Controller
         $user = User::where('email', $inputs['email'])->first();
         $verified = Hash::check($inputs['password'], $user->password);
 
-        if($verified){
+        if($verified && $user->isSiteAdmin){
 
             Auth::login($user);
+        }else{
+            echo 'verified: '.$verified.'<br />Site Admin: '.$user->isSiteAdmin;
         }
+
+        return redirect('/');
+    }
+
+    public function destroy(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
 
         return redirect('/');
     }

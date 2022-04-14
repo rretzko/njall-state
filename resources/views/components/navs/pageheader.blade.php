@@ -72,6 +72,12 @@
                class="mr-1 px-1 py-1  @if($active === 'titles') bg-white text-blueGray-800 @endif rounded-t text-center md:text-lg">
                 Titles
             </a>
+            @auth
+                <a href="{{ route('logout') }}"
+                   class="mr-1 px-1 py-1 rounded-t text-center md:text-lg">
+                    LogOut
+                </a>
+            @endauth
         </div>
 
     </div>

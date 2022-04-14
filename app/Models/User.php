@@ -63,6 +63,11 @@ class User extends Authenticatable implements HasLocalePreference
         return $this->roles()->where('title', 'Admin')->exists();
     }
 
+    public function getIsSiteAdminAttribute()
+    {
+        return $this->roles()->where('title', 'Site Admin')->exists();
+    }
+
     public function scopeAdmins()
     {
         return $this->whereHas('roles', fn ($q) => $q->where('title', 'Admin'));

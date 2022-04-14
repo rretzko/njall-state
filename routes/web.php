@@ -34,7 +34,7 @@ Route::group([
         ->name('login');
 
     Route::group(['middleware' => 'auth'], function(){
-
+        Route::get('logout', [App\Http\Controllers\Siteadmin\LoginController::class, 'destroy']);
     });
 });
 
