@@ -7,8 +7,8 @@
         <div class="flex flex-col">
             <div class="flex flex-col">
                 @if(auth()->user())
-                    <a href="">Upload Program</a>
-                    <a href="">Upload Participants</a>
+                    <a href="{{ route('siteadmin.program') }}">Add Program</a>
+                    <a href="">Add Participants</a>
                 @endif
             </div>
 

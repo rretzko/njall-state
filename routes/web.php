@@ -34,7 +34,13 @@ Route::group([
         ->name('login');
 
     Route::group(['middleware' => 'auth'], function(){
+
         Route::get('logout', [App\Http\Controllers\Siteadmin\LoginController::class, 'destroy']);
+
+        Route::get('program/new', [App\Http\Controllers\Siteadmin\ProgramController::class, 'create'])
+            ->name('program');
+
+
     });
 });
 
