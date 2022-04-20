@@ -16,7 +16,7 @@
                     </div>
                     <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
                         <!-- {{-- <form method="POST" action="{{ route('login') }}"> --}} -->
-                            <form method="POST" action="{{ env('APP_URL').'/siteadmin/login' }}">
+                            <form method="POST" action="{{ route('siteadmin.login') }}">
                             @csrf
                             <div class="relative w-full mb-3">
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="email">
