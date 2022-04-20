@@ -23,15 +23,20 @@ Route::view('/', 'welcome')->name('home');
 
 Auth::routes(['register' => false]);
 
+Route::get('siteadmin', [App\Http\Controllers\Siteadmin\LoginController::class, 'index']);
+
+Route::post('login', [App\Http\Controllers\Siteadmin\LoginController::class, 'update'])
+    ->name('siteadmin.login');
+
 Route::group([
   'as' => 'siteadmin.',
   'namespace' => 'App\Http\Controllers\Siteadmin',
 ],function(){
 
-    Route::get('siteadmin', [App\Http\Controllers\Siteadmin\LoginController::class, 'index']);
+    //Route::get('siteadmin', [App\Http\Controllers\Siteadmin\LoginController::class, 'index']);
 
-    Route::post('login', [App\Http\Controllers\Siteadmin\LoginController::class, 'update'])
-        ->name('login');
+    //Route::post('login', [App\Http\Controllers\Siteadmin\LoginController::class, 'update'])
+    //    ->name('login');
 
     Route::group(['middleware' => 'auth'], function(){
 
