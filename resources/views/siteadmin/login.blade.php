@@ -10,7 +10,7 @@
 
                 @csrf
 
-@if(\Illuminate\Support\Facades\Session::has('pw')){{ dd(\Illuminate\Support\Facades\Session::all()) }}@endif
+<!-- {{-- @if(\Illuminate\Support\Facades\Session::has('pw')){{ dd(\Illuminate\Support\Facades\Session::all()) }}@endif --}} -->
                 <input type="hidden" name="remember" value="true">
                 <div class="rounded-md shadow-sm -space-y-px">
                     <div>
