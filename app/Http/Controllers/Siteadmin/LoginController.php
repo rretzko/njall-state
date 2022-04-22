@@ -24,7 +24,8 @@ class LoginController extends Controller
 
         $user = User::where('email', $inputs['email'])->first();
         $verified = Hash::check($inputs['password'], $user->password);
-
+echo 'verified: '.$verified.'<br />';
+echo 'isSiteAdmin: '.$user->isSiteAdmin.'<br />';
         if($verified && $user->isSiteAdmin){
 
             Auth::login($user);
