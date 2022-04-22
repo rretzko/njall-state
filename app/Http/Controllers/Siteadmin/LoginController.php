@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -24,16 +25,17 @@ class LoginController extends Controller
 
         $user = User::where('email', $inputs['email'])->first();
         $verified = Hash::check($inputs['password'], $user->password);
-echo 'verified: '.$verified.'<br />';
-echo 'isSiteAdmin: '.$user->isSiteAdmin.'<br />';
+if(! $verified){ Session::flash('pw', 'Password not found.');}
         if($verified && $user->isSiteAdmin){
 
             Auth::login($user);
         }else{
-            echo 'verified: '.$verified.'<br />Site Admin: '.$user->isSiteAdmin;
+
+            Session::flash('testing', 'verified: '.$verified.'<br />Site Admin: '.$user->isSiteAdmin);
         }
 
-        return redirect('/');
+        //return redirect('/');
+        return back();
     }
 
     public function destroy(Request $request)
