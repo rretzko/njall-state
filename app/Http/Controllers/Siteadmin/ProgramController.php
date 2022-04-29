@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Siteadmin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\CompositionsImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProgramController extends Controller
 {
@@ -72,6 +74,13 @@ class ProgramController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function upload(Request $request)
+    {
+        Excel::import(new CompositionsImport, $request->file('file-upload'));
+
+        return $this->create();
     }
 
     /**

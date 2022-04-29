@@ -18,17 +18,20 @@ class Artist extends Model
 
     public $orderable = [
         'id',
-        'name',
+        'first',
+        'last',
     ];
 
     public $filterable = [
         'id',
-        'name',
+        'first',
+        'last',
         'artisttype.descr',
     ];
 
     protected $fillable = [
-        'name',
+        'first',
+        'last',
     ];
 
     protected $dates = [

@@ -39,6 +39,8 @@ Route::group([
 
         Route::get('program/new', [App\Http\Controllers\Siteadmin\ProgramController::class, 'create'])
             ->name('program');
+        Route::post('program/upload', [App\Http\Controllers\Siteadmin\ProgramController::class, 'upload'])
+            ->name('program.upload');
 
 
     });
