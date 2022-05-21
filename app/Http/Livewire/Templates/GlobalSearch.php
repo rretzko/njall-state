@@ -142,16 +142,19 @@ class GlobalSearch extends Component
 
         foreach($years AS $year){
 
-            $eventid = Event::where('year_of', $year)->first()->id;
+            if(Event::where('year_of', $year)->exists()) {
 
-            $str .= ($year == $this->globalsearch)
-                ? '<li><b>'.$this->globalsearch.'</b></li>'
-                :  '<li>'
-                        .'<a href="'.$eventid.'"'
-                        .' style="color: blue;" >'
-                        .$year
-                        .'</a>'
+                $eventid = Event::where('year_of', $year)->first()->id;
+
+                $str .= ($year == $this->globalsearch)
+                    ? '<li><b>' . $this->globalsearch . '</b></li>'
+                    : '<li>'
+                    . '<a href="' . $eventid . '"'
+                    . ' style="color: blue;" >'
+                    . $year
+                    . '</a>'
                     . '</li>';
+            }
         };
 
         return $str;
