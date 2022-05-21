@@ -18,6 +18,7 @@ class Participant extends Model
 
     public $orderable = [
         'id',
+        'event_id',
         'first',
         'last',
         'instrumentation.descr',
@@ -26,6 +27,7 @@ class Participant extends Model
 
     public $filterable = [
         'id',
+        'event_id',
         'first',
         'last',
         'instrumentation.descr',
@@ -39,6 +41,7 @@ class Participant extends Model
     ];
 
     protected $fillable = [
+        'event_id',
         'first',
         'last',
         'instrumentation_id',

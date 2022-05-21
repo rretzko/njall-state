@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Siteadmin;
 
 use App\Http\Controllers\Controller;
-use App\Imports\CompositionsImport;
+use App\Imports\ParticipantsImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ProgramController extends Controller
+class ParticipantController extends Controller
 {
     /**
      * Show the form for creating a new resource.
@@ -16,14 +16,14 @@ class ProgramController extends Controller
      */
     public function create()
     {
-        return view('siteadmin.programs.create',[
+        return view('siteadmin.participants.create',[
             'searchlist' => '',
         ]);
     }
 
     public function upload(Request $request)
     {
-        Excel::import(new CompositionsImport, $request->file('file-upload'));
+        Excel::import(new ParticipantsImport, $request->file('file-upload'));
 
         return $this->create();
     }

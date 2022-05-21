@@ -24,7 +24,7 @@
             <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                 <div class="space-y-1 text-center">
                     <div class="flex text-sm text-gray-600">
-                        <form method="post" action="{{ route('siteadmin.program.upload') }}"
+                        <form method="post" action="{{ route('siteadmin.participant.upload') }}"
                             enctype="multipart/form-data"
                             class="flex flex-col"
                             style="border: 1px solid black; padding: 0.5rem;"

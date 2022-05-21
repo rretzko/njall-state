@@ -37,6 +37,11 @@ Route::group([
 
         Route::get('logout', [App\Http\Controllers\Siteadmin\LoginController::class, 'destroy']);
 
+        Route::get('participant/new', [App\Http\Controllers\Siteadmin\ParticipantController::class, 'create'])
+            ->name('participant');
+        Route::post('participant/upload', [App\Http\Controllers\Siteadmin\ParticipantController::class, 'upload'])
+            ->name('participant.upload');
+
         Route::get('program/new', [App\Http\Controllers\Siteadmin\ProgramController::class, 'create'])
             ->name('program');
         Route::post('program/upload', [App\Http\Controllers\Siteadmin\ProgramController::class, 'upload'])
