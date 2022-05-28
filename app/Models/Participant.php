@@ -84,6 +84,11 @@ class Participant extends Model
         return $this->last.', '.$this->first;
     }
 
+    public function getYear_OfAttribute()
+    {
+        return $this->event->year_of;
+    }
+
     public function instrumentation()
     {
         return $this->belongsTo(Instrumentation::class);

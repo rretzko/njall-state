@@ -35,10 +35,22 @@ Route::group([
 
     Route::group(['middleware' => 'auth'], function(){
 
+        Route::get('siteadmin/menu', [App\Http\Controllers\Siteadmin\MenuController::class, 'index'])->name('menu');
+
         Route::get('logout', [App\Http\Controllers\Siteadmin\LoginController::class, 'destroy']);
 
+        Route::get('participant/edit', [App\Http\Controllers\Siteadmin\ParticipantController::class, 'edit'])
+            ->name('participant.edit');
+        Route::get('participant/editform/{participant}', [App\Http\Controllers\Siteadmin\ParticipantController::class, 'editform'])
+            ->name('participant.editform');
         Route::get('participant/new', [App\Http\Controllers\Siteadmin\ParticipantController::class, 'create'])
             ->name('participant');
+        Route::get('participant/remove/{participant}', [App\Http\Controllers\Siteadmin\ParticipantController::class, 'destroy'])
+            ->name('participant.remove');
+        Route::post('participant/show', [App\Http\Controllers\Siteadmin\ParticipantController::class, 'show'])
+            ->name('participant.show');
+        Route::post('participant/update/{participant}', [App\Http\Controllers\Siteadmin\ParticipantController::class, 'update'])
+            ->name('participant.update');
         Route::post('participant/upload', [App\Http\Controllers\Siteadmin\ParticipantController::class, 'upload'])
             ->name('participant.upload');
 

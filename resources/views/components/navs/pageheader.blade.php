@@ -37,8 +37,18 @@
         </div>
 
         <div id="nav-guest">
+
+            @auth
+                @if(auth()->user()->isSiteAdmin)
+                    <a href="{{ route('siteadmin.menu') }}"
+                       class="mr-1 px-1 py-1 rounded-t text-center md:text-lg @if($active === 'siteadmin') active @endif" >
+                        Admin
+                    </a>
+                @endif
+            @endauth
+
             <a href="{{ route('home') }}"
-               class="mr-1 px-1 py-1 rounded-t text-center md:text-lg @if(! isset($active)) active @endif" >
+               class="mr-1 px-1 py-1 rounded-t text-center md:text-lg @if(($active === 'home') || (! isset($active))) active @endif" >
                 Home
             </a>
 <!-- {{--

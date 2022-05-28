@@ -5,16 +5,6 @@
     <div id="template-structure" class="flex" style="">
 
         <div class="flex flex-col">
-            <div class="flex flex-col">
-                @if(auth()->user())
-                    <a href="{{ route('siteadmin.program') }}">
-                        Add Program
-                    </a>
-                    <a href="{{ route('siteadmin.participant') }}">
-                        Add Participants
-                    </a>
-                @endif
-            </div>
 
             {{-- SIDEBAR --}}
             <div id="sidebar" class="flex flex-col px-2 py-2" style="background-color: rgba(0,0,0,.1);">
