@@ -39,6 +39,22 @@ Route::group([
 
         Route::get('logout', [App\Http\Controllers\Siteadmin\LoginController::class, 'destroy']);
 
+        //CONDUCTOR
+        Route::get('conductors', [App\Http\Controllers\Siteadmin\ConductorController::class, 'index'])
+            ->name('conductors');
+        Route::get('conductors/{by_year}', [App\Http\Controllers\Siteadmin\ConductorController::class, 'index'])
+            ->name('conductors.byyear');
+        //Route::get('event/new', [App\Http\Controllers\Siteadmin\EventController::class, 'index'])
+        //    ->name('event');
+        Route::get('conductor/edit/{conductor}', [App\Http\Controllers\Siteadmin\ConductorController::class, 'edit'])
+            ->name('conductor.edit');
+        Route::get('conductor/remove/{conductor}', [App\Http\Controllers\Siteadmin\ConductorController::class, 'destroy'])
+            ->name('conductor.remove');
+        Route::post('conductor/store', [App\Http\Controllers\Siteadmin\ConductorController::class, 'store'])
+            ->name('conductor.store');
+        Route::post('conductor/update/{conductor}', [App\Http\Controllers\Siteadmin\ConductorController::class, 'update'])
+            ->name('conductor.update');
+
         //EVENT
         Route::get('event/new', [App\Http\Controllers\Siteadmin\EventController::class, 'index'])
             ->name('event');

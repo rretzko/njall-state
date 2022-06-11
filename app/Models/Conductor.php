@@ -41,6 +41,39 @@ class Conductor extends Model
         return $this->belongsToMany(Event::class);
     }
 
+    /**
+     * Conductor's first name is derived from all parts of conductor's full name
+     * minus the first and last parts
+     *
+     * @return string
+     */
+    public function getFirstAttribute()
+    {
+        $first = '';
+        $parts = explode(" ", $this->name);
+
+        $honorific = array_shift($parts);
+        $last = array_pop($parts);
+
+        foreach($parts AS $part){
+
+            $first .= $part.' ';
+        }
+
+        return trim($first);
+
+    }
+
+    /**
+     * Conductor's full name is as printed in the program
+     * Conductors name requires an:
+     * - Honorific (Dr., Mr., Ms., etc)
+     * - First name
+     * - Last name
+     * - all parts between the Honorific and Last name are considered First name
+     * - no consideration has been given for name suffixes (Jr., Sr., III, etc.)
+     * @return string
+     */
     public function getFullnameAlphaAttribute()
     {
         //[title,firstname,middlename (opt),lastname];

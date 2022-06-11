@@ -3,6 +3,10 @@
     @if(auth()->user())
 
         <div class="flex flex-col" style="padding: 0.5rem 0;">
+            <a href="{{ route('siteadmin.conductors') }}">
+                Add Conductor
+            </a>
+
             <a href="{{ route('siteadmin.event') }}">
                 Add Event
             </a>
@@ -18,6 +22,9 @@
 
         <div  class="flex flex-col" style="border-top: 1px solid darkgrey; padding: 0.5rem 0;">
 
+            <a href="{{ route('siteadmin.conductors') }}">
+                Edit Conductor
+            </a>
             <a href="{{ route('siteadmin.event') }}">
                 Edit Event
             </a>
