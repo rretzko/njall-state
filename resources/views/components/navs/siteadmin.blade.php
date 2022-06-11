@@ -18,6 +18,9 @@
 
         <div  class="flex flex-col" style="border-top: 1px solid darkgrey; padding: 0.5rem 0;">
 
+            <a href="{{ route('siteadmin.event') }}">
+                Edit Event
+            </a>
             <a href="{{ route('siteadmin.participant.edit') }}">
                 Edit Participant
             </a>

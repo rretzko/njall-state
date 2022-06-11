@@ -13,7 +13,7 @@
         <label for="name">Name</label>
         <div class="flex flex-row space-x-2">
             <div class="flex flex-col">
-                <input type="text" class="mr-2" name="name" id="name" value="{{ $event->name }}"
+                <input type="text" class="mr-2" style="width: 60rem;" name="name" id="name" value="{{ $event->name }}"
                       placeholder="Event name"/>
                 @error('name')
                 <div>
@@ -31,7 +31,7 @@
         <label for="year_of">Year</label>
         <div class="flex flex-row space-x-2">
             <div class="flex flex-col">
-                <input type="number" class="mr-2" name="year_of" id="year_of" value="{{ $event->year_of }}"
+                <input type="number" class="mr-2"  style="width: 6rem;" name="year_of" id="year_of" value="{{ $event->year_of }}"
                        placeholder="Year"/>
                 @error('year_of')
                 <div>
@@ -49,7 +49,7 @@
         <label for="program_link">Program Link</label>
         <div class="flex flex-row space-x-2">
             <div class="flex flex-col">
-                <input type="text" class="mr-2" name="program_link" id="program_link" value="{{ $event->program_link }}"
+                <input type="text" class="mr-2" style="width: 60rem;" name="program_link" id="program_link" value="{{ $event->program_link }}"
                        placeholder="Program link"/>
                 @error('program_link')
                 <div>
