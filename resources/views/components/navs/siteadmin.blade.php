@@ -3,7 +3,7 @@
     @if(auth()->user())
 
         <div class="flex flex-col" style="padding: 0.5rem 0;">
-            <a href="#">
+            <a href="{{ route('siteadmin.event') }}">
                 Add Event
             </a>
 

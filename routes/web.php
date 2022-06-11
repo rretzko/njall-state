@@ -39,6 +39,19 @@ Route::group([
 
         Route::get('logout', [App\Http\Controllers\Siteadmin\LoginController::class, 'destroy']);
 
+        //EVENT
+        Route::get('event/new', [App\Http\Controllers\Siteadmin\EventController::class, 'index'])
+            ->name('event');
+        Route::get('event/edit/{event}', [App\Http\Controllers\Siteadmin\EventController::class, 'edit'])
+            ->name('event.edit');
+        Route::get('event/remove/{event}', [App\Http\Controllers\Siteadmin\EventController::class, 'destroy'])
+            ->name('event.remove');
+        Route::post('event/store', [App\Http\Controllers\Siteadmin\EventController::class, 'store'])
+            ->name('event.store');
+        Route::post('event/update/{event}', [App\Http\Controllers\Siteadmin\EventController::class, 'update'])
+            ->name('event.update');
+
+        //PARTICIPANT
         Route::get('participant/edit', [App\Http\Controllers\Siteadmin\ParticipantController::class, 'edit'])
             ->name('participant.edit');
         Route::get('participant/editform/{participant}', [App\Http\Controllers\Siteadmin\ParticipantController::class, 'editform'])
@@ -54,6 +67,7 @@ Route::group([
         Route::post('participant/upload', [App\Http\Controllers\Siteadmin\ParticipantController::class, 'upload'])
             ->name('participant.upload');
 
+        //PROGRAM
         Route::get('program/new', [App\Http\Controllers\Siteadmin\ProgramController::class, 'create'])
             ->name('program');
         Route::post('program/upload', [App\Http\Controllers\Siteadmin\ProgramController::class, 'upload'])
