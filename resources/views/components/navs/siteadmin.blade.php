@@ -22,6 +22,9 @@
 
         <div  class="flex flex-col" style="border-top: 1px solid darkgrey; padding: 0.5rem 0;">
 
+            <a href="{{ route('siteadmin.compositions') }}">
+                Edit Composition
+            </a>
             <a href="{{ route('siteadmin.conductors') }}">
                 Edit Conductor
             </a>

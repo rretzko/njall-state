@@ -39,6 +39,19 @@ Route::group([
 
         Route::get('logout', [App\Http\Controllers\Siteadmin\LoginController::class, 'destroy']);
 
+        //COMPOSITION
+        Route::get('compositions/{by?}', [App\Http\Controllers\Siteadmin\CompositionController::class, 'index'])
+            ->name('compositions');
+        Route::get('composition/edit/{composition}', [App\Http\Controllers\Siteadmin\CompositionController::class, 'edit'])
+            ->name('composition.edit');
+        Route::get('composition/replace/{old}/{new}', [App\Http\Controllers\Siteadmin\CompositionController::class, 'replace'])
+            ->name('composition.replace');
+        Route::get('composition/remove/{composition}', [App\Http\Controllers\Siteadmin\CompositionController::class, 'destroy'])
+            ->name('composition.remove');
+        Route::post('composition/update/{composition}', [App\Http\Controllers\Siteadmin\CompositionController::class, 'update'])
+            ->name('composition.update');
+
+
         //CONDUCTOR
         Route::get('conductors', [App\Http\Controllers\Siteadmin\ConductorController::class, 'index'])
             ->name('conductors');

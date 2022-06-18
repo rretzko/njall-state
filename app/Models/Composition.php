@@ -9,6 +9,7 @@ use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use phpDocumentor\Reflection\Types\Integer;
 
 class Composition extends Model
@@ -52,6 +53,26 @@ class Composition extends Model
     {
         return $this->belongsToMany(Artist::class)
             ->withPivot('artisttype_id');
+    }
+
+    /**
+     * Return comma-separated string for $artisttype (ex. composers)
+     * @param Collection $artisttypes
+     * @return string
+     */
+    public function artisttypeString($artisttypes) : string
+    {
+        //early exit
+        if(! $artisttypes){ return ''; }
+
+        $a = [];
+
+        foreach($artisttypes AS $artisttype){
+
+            $a[] = $artisttype->fullname;
+        }
+
+        return implode(', ', $a);
     }
 
     public function composers()
