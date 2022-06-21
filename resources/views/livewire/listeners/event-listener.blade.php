@@ -40,6 +40,9 @@
                                     @foreach($composition->composers AS $composer)
                                         <i>{{ $composer->fullname }}</i>
                                     @endforeach
+                                        @foreach($composition->arrangers AS $arranger)
+                                            <i>arr. {{ $arranger->fullname }}</i>
+                                        @endforeach
                                 </div>
                             </div>
                         </div>

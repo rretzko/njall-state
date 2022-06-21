@@ -10,7 +10,7 @@
      style="{{ ($iteration % 2) ?: 'background-color: rgba(255,255,255,.1);' }}"
 >
         <span style="@if($composition->id == $compositionid) color: gold; @endif" title="{{ $composition->id }}">
-            {{ $composition->title}}
+            {{ $composition->title }}
         </span>
     @if($composition->pivot->combined) (combined) @endif
 
