@@ -47,7 +47,13 @@
                             </div>
                         </div>
                     @empty
-                        <div>No program found</div>
+                        @if($event->cancellation)
+                            <div>
+                                Program cancelled due to: {{ ucwords($event->cancellation->descr) }}.
+                            </div>
+                            @else
+                            <div>No program found</div>
+                        @endif
                     @endforelse
                 </div>
                 <div style="margin: 0.5rem 0;">

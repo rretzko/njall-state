@@ -87,7 +87,7 @@ class CompositionController extends Controller
         //Delete old composition if no performance usage found (i.e. expected result)
         $test = Composition::find($old);
 
-        if(! $test->performanceCount){
+        if($test && (! $test->performanceCount)){
 
             $test->delete();
         }

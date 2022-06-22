@@ -13,7 +13,13 @@
             @forelse($event->conductors AS $conductor)
                 <div>{{ $conductor->name }}</div>
             @empty
-                <div>No conductor found</div>
+                <div>
+                    @if($event->cancellation)
+                        {{ $event->cancellation->descr }}
+                        @else
+                        No conductor found
+                    @endif
+                </div>
             @endforelse
         </div>
         <div class="mb-2">

@@ -40,6 +40,11 @@ class Event extends Model
         'deleted_at',
     ];
 
+    public function cancellation()
+    {
+        return $this->hasOne(Cancellation::class);
+    }
+
     public function compositions()
     {
         return $this->belongsToMany(Composition::class)
