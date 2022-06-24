@@ -15,14 +15,33 @@
                 <div style="font-size: .75rem;">
                     Conductor
                 </div>
-                <div style="margin: 0.5rem 0;">
-                    <a href="{{ $event->program_link }}" @if(! $event->program_link) disabled @endif target="_NEW" style="text-align: left;">
-                        <button style="border-radius: 1rem; cursor: pointer; color: blue; font-size: 0.8rem; text-align: left;"
-                                @if(! $event->program_link) disabled @endif
-                        >
-                            Program PDF
-                        </button>
-                    </a>
+
+                {{-- MEDIA LINKs --}}
+                <div id="media-links" class="flex flex-row">
+
+                    {{-- PROGRAM LINK --}}
+                    <div style="margin: 0.5rem 0; margin-right: 1rem;">
+                        <a href="{{ $event->program_link }}" @if(! $event->program_link) disabled @endif target="_NEW" style="text-align: left;">
+                            <button style="border-radius: 1rem; cursor: pointer; color: blue; font-size: 0.8rem; text-align: left;"
+                                    @if(! $event->program_link) disabled @endif
+                            >
+                                Program PDF
+                            </button>
+                        </a>
+                    </div>
+
+                    {{-- VIDEO LINK --}}
+                    <div style="margin: 0.5rem 0;">
+                        @if(! is_null($event->video_link))
+                            <a href="{{ $event->video_link }}" @if(! $event->video_link) disabled @endif target="_NEW" style="text-align: left;">
+                                <button style="border-radius: 1rem; cursor: pointer; color: blue; font-size: 0.8rem; text-align: left;"
+                                        @if(! $event->video_link) disabled @endif
+                                >
+                                    Video Link
+                                </button>
+                            </a>
+                        @endif
+                    </div>
                 </div>
             </div>
             <div id="program-card" style="width: 66%; text-align: left; padding: 0 .5rem;">
