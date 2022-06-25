@@ -65,12 +65,12 @@ class ParticipantsImport implements ToModel, WithHeadingRow
     private function map(array $row)
     {
         $a = [];
-        $a['first'] = $row['first'];
-        $a['last'] = $row['last'];
+        $a['first'] = trim($row['first']);
+        $a['last'] = trim($row['last']);
         $a['event_id'] = (Event::where('year_of', $row['year'])->exists())
             ? Event::where('year_of', $row['year'])->first()->id
             : false;
-        $a['ensemble_id'] = Ensemble::where('name', 'NJ All-State Mixed Choir')->first()->id;
+        $a['ensemble_id'] = Ensemble::NJALLSTATEMIXED; //Ensemble::where('name', 'NJ All-State Mixed Choir')->first()->id;
         $a['school_id'] = $this->getSchoolId($row['schoolname']);
         $a['instrumentation_id'] = Instrumentation::where('descr', $row['voicepart'])->exists()
             ? Instrumentation::where('descr', $row['voicepart'])->first()->id

@@ -36,6 +36,8 @@ class Ensemble extends Model
         'deleted_at',
     ];
 
+    const NJALLSTATEMIXED = 1;
+
     public function instrumentations()
     {
         return $this->belongsToMany(Instrumentation::class)->orderBy('order_by');
