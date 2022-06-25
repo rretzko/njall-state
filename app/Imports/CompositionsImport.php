@@ -19,29 +19,27 @@ class CompositionsImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        $compositions = $this->findSimilarTitles($row['title']);
+        static $cntr = 1;
+
+        $composition = $this->findSimilarTitles($row['title']);
         $composerid = $this->findArtistId($row['composer']);
         $arrangerid = $this->findArtistId($row['arranger']);
 
-        if(! $compositions->count()){
-
-            $composition = Composition::create([
-                'title' => $row['title'],
-                'subtitle' => $row['subtitle'],
-            ]);
+        if($composition->id){
 
             $event_id = $this->findEventId($row['year']);
 
-            $composition->events()->attach($event_id,['opener' => 0,'closer' => 0, 'combined' => 0, 'order_by' => 1]);
+            $composition->events()->attach($event_id,['opener' => 0,'closer' => 0, 'combined' => 0, 'order_by' => $cntr]);
+
+            $cntr++;
 
             if($composerid){ $composition->artists()->attach($composerid, ['artisttype_id' => Artisttype::COMPOSER]);}
             if($arrangerid){ $composition->artists()->attach($arrangerid, ['artisttype_id' => Artisttype::ARRANGER]);}
 
         }else{
 
-            dd($compositions);
+            dd($composition);
         }
-
 
         return $composition;
     }
@@ -54,28 +52,21 @@ class CompositionsImport implements ToModel, WithHeadingRow
         if(! strlen($artist)){ return 0;}
 
         $parts = explode(' ', $artist);
-        $lastname = $parts[(count($parts) - 1)];
-        $firstname = $parts[0];
+        $lastname = array_pop($parts); //[(count($parts) - 1)];
+        $firstname = implode(' ', $parts);
 
-        $artists = Artist::where('last', $lastname)->get();
+        $artist = Artist::where('first', $firstname)
+            ->where('last', $lastname)
+            ->firstOr(function() use($firstname, $lastname){
+                Artist::create(
+                    [
+                        'first' => $firstname,
+                        'last' => $lastname,
+                    ]
+                );
+            });
 
-        if(! $artists){ return 0;}
-
-        foreach($artists AS $artist){
-
-            if($artist->first == $firstname){ //artist found
-
-                return $artist->id;
-            }
-        }
-
-        //no artist found: Create artist
-        $artist = Artist::create([
-           'first' => $firstname,
-           'last' => $lastname,
-        ]);
-
-        return $artist->id;
+        return ($artist) ? $artist->id :  0;
     }
 
     private function findEventId($year): int
@@ -83,10 +74,17 @@ class CompositionsImport implements ToModel, WithHeadingRow
         return Event::where('year_of', $year)->first()->id;
     }
 
-    private function findSimilarTitles($title): Collection
+    private function findSimilarTitles($title): Composition
     {
-        $c = Composition::where('title', $title)->get();
+        $c = Composition::where('title', $title)
+            ->firstOr(function() use ($title){
+                Composition::create(
+                    [
+                        'title' => $title
+                    ]
+                );
+        });
 
-        return $c ?: collect();
+        return $c ?: new Composition;
     }
 }
