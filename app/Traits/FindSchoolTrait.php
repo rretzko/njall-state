@@ -85,6 +85,7 @@ trait FindSchoolTrait
             'Cranford HS' => 115,
             'Dseneca' => 759, //typo for Seneca HS
             'Dseneca HS' => 759, //typo for Seneca HS
+            'Egg Harbor Twp HS' => 149,
             'Haddon Twp HS' => 194,
             'Hawthorne Christian Acad' => 728,
             'Hunterdon Cent Reg HS Dist' => 244,
@@ -104,10 +105,12 @@ trait FindSchoolTrait
             'Parsippany Hills HS' => 412,
             'Pascack Valley HS' => 416,
             'Pemberton HS' => 427,
+            'River Dell Reg HS' => 478,
             'Rutgers Prep School' => 640,
             'W Morris Mendham' => 599,
             'W Morris Mendham HS' => 599,
             'Westfield Senior High' =>613,
+            'Washington Twp HS' => 572,
             'Woodtown HS' => 628, //typo for Woodstown HS
 
         ];
