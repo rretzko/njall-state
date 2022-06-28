@@ -86,6 +86,7 @@ trait FindSchoolTrait
             'Dseneca' => 759, //typo for Seneca HS
             'Dseneca HS' => 759, //typo for Seneca HS
             'Egg Harbor Twp HS' => 149,
+            'Freehold Twp HS' => 176,
             'Haddon Twp HS' => 194,
             'Hawthorne Christian Acad' => 728,
             'Hunterdon Cent Reg HS Dist' => 244,
