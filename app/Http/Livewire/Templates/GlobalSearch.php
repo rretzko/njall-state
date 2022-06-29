@@ -7,6 +7,7 @@ use App\Models\Conductor;
 use App\Models\Event;
 use App\Models\Participant;
 use App\Models\School;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class GlobalSearch extends Component
@@ -54,11 +55,17 @@ class GlobalSearch extends Component
 
         foreach(Conductor::orderBy('last')->get() AS $conductor){
 
-            $str .= '<li>'
-                . '<a href="/guest/event/'.$conductor->events->first()->id.'" style="color: blue;">'
-                .$conductor->fullnameAlpha
-                . '</a>'
-                .'</li>';
+            if($conductor->events) {
+
+                $str .= '<li>'
+                    . '<a href="/guest/event/' . $conductor->events->first()->id . '" style="color: blue;">'
+                    . $conductor->fullnameAlpha
+                    . '</a>'
+                    . '</li>';
+            }else{
+
+                Log::info('Missing events for conductor id: '.$conductor->id);
+            }
         }
 
         $str .= '</ul>';
