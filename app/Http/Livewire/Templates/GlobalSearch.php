@@ -55,7 +55,7 @@ class GlobalSearch extends Component
 
         foreach(Conductor::orderBy('last')->get() AS $conductor){
 
-            if($conductor->events) {
+            if($conductor->events->count()) {
 
                 $str .= '<li>'
                     . '<a href="/guest/event/' . $conductor->events->first()->id . '" style="color: blue;">'
