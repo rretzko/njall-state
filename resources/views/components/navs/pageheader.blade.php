@@ -51,6 +51,12 @@
                class="mr-1 px-1 py-1 rounded-t text-center md:text-lg @if(($active === 'home') || (! isset($active))) active @endif" >
                 Home
             </a>
+
+            <a href="{{ route('guest.programs') }}"
+               class="mr-1 px-1 py-1 rounded-t text-center md:text-lg @if($active === 'programs') active @endif" >
+                Programs
+            </a>
+
 <!-- {{--
             <a href="{{ route('guest.events') }}"
                class="mr-1 px-1 py-1 rounded-t text-center md:text-lg @if($active === 'events') active @endif" >

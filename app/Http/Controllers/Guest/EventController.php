@@ -13,7 +13,7 @@ class EventController extends Controller
     {
         return view('guests.templates.event',
         [
-            'active' => 'events',
+            'active' => 'programs',
             'event' => $event ?? Event::getCurrentEvent(),
             'events' => Event::orderByDesc('year_of')->get(),
             'participant' => $participant,

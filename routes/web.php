@@ -117,6 +117,9 @@ Route::group([
     Route::get('events/', [App\Http\Controllers\Guest\EventController::class, 'index'])
         ->name('events');
 
+    Route::get('programs', [App\Http\Controllers\Guest\ProgramsController::class, 'index'])
+        ->name('programs');
+
     Route::get('years', [App\Http\Controllers\Guest\YearsController::class, 'index'])
         ->name('years');
     /** OLD ROUTES */
