@@ -25,6 +25,7 @@ class GlobalSearch extends Component
             [
                 'alphaconductors' => $this->alphaConductors(),
                 'alphaschools' => $this->alphaSchools(),
+                'years' => $this->decadeSegment(),
             ]);
     }
 
@@ -41,6 +42,8 @@ class GlobalSearch extends Component
         $this->searchresults .= $this->globalsearchTitles();
 
         $this->searchresults .= '</ul>';
+
+        $this->reset('globalsearch');
     }
 
     private function alphaConductors()
@@ -97,6 +100,28 @@ class GlobalSearch extends Component
         return $str;
     }
 
+    private function decadeSegment()
+    {
+        //return 10 year links based on current event
+        if(! $this->globalsearch) {
+            $event = Event::getCurrentEvent();
+            $this->globalsearch = $event->year_of;
+        }
+
+        if(is_int($this->searchlist) && (strlen($this->searchlist) === 4)){
+
+            $this->globalsearch = $this->searchlist;
+
+            if(! $this->searchresults) {
+
+                $this->updatedGlobalsearch();
+            }else{
+
+                $this->reset('globalsearch');
+            }
+        }
+    }
+
     private function globalSearchConductors()
     {
         $conductors = $this->searchConductors();
@@ -143,7 +168,7 @@ class GlobalSearch extends Component
 
     private function globalSearchYears()
     {
-        $years = $this->searchYears();
+        $years = $this->searchYears(); //ex. 11 row ul with the current search year in the middle
 
         $str = count($years) ? '<li><b>Years</b></li>' : '';
 
@@ -154,7 +179,7 @@ class GlobalSearch extends Component
                 $eventid = Event::where('year_of', $year)->first()->id;
 
                 $str .= ($year == $this->globalsearch)
-                    ? '<li><b>' . $this->globalsearch . '</b></li>'
+                    ? '<li><b>' . $this->globalsearch . '</b></li>' //current year === no anchor tag
                     : '<li>'
                     . '<a href="' . $eventid . '"'
                     . ' style="color: blue;" >'
