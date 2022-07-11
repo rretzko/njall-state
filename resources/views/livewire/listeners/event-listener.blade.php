@@ -107,8 +107,8 @@
                 </a>
             </div>
         @else
-            <a href="/assets/images/1984_mixed.jpeg" target="_BLANK">
-                <img class="mb-2" src="/assets/images/1984_mixed.jpeg" width=""/>
+            <a href="{{ $event->image_link }}" target="_BLANK">
+                <img class="mb-2" src="{{ $event->image_link }}" width=""/>
             </a>
         @endif
     </div>
