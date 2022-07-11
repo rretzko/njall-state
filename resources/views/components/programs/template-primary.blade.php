@@ -31,6 +31,9 @@
                     Click for: Image of program courtesy of HighSchoolChoralResources.com
                 </a>
             @endif
+            <div>
+                Event image
+            </div>
         </div>
     </section>
 

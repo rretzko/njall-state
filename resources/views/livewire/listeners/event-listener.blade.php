@@ -42,7 +42,14 @@
                             </a>
                         @endif
                     </div>
+
                 </div>
+
+                {{-- CHORUS IMAGE
+                <div>
+                    <img src="{{ asset('/images/1984_mixed.jpg') }}" />
+                </div>
+--}}
             </div>
             <div id="program-card" style="width: 66%; text-align: left; padding: 0 .5rem;">
                 <header style="font-weight: bold; margin: 0.5rem 0;">
@@ -84,7 +91,26 @@
                         </a>
                     @endif
                 </div>
+
             </div>
+
         </div>
     </div>
+
+    <div class="px-8 mb-2">
+        @if(is_null($event->image_link))
+            <div class="text-center">
+                <a href="mailto:rick@mfrholdings.com?subject=NJ-All State Chorus photo&body=Hi Rick, I've attached a photo for the {{ $event->name }}."
+                    class="text-center text-blue-500 w-full"
+                >
+                    Got a Mixed Chorus photo? Send it in!
+                </a>
+            </div>
+        @else
+            <a href="/assets/images/1984_mixed.jpeg" target="_BLANK">
+                <img class="mb-2" src="/assets/images/1984_mixed.jpeg" width=""/>
+            </a>
+        @endif
+    </div>
+
 </div>
