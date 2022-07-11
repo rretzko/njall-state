@@ -32,6 +32,7 @@ class Event extends Model
         'name',
         'year_of',
         'program_link',
+        'image_link',
         'video_link',
     ];
 
