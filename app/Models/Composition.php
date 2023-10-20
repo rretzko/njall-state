@@ -123,6 +123,14 @@ class Composition extends Model
             ->wherePivot('artisttype_id', Artisttype::WORDSANDMUSIC);
     }
 
+    public function hasRecording(): bool
+    {
+        return Media::query()
+            ->where('composition_id', $this->id)
+            ->where('mediatype_id', Mediatype::AUDIO)
+            ->exists();
+    }
+
     public function lyricists()
     {
         return $this->belongsToMany(Artist::class)
