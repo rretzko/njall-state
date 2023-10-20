@@ -96,6 +96,16 @@ class Composition extends Model
         return $a;
     }
 
+    public function getAudioLink(): string
+    {
+        return Media::query()
+            ->where('composition_id', $this->id)
+            ->where('mediatype_id', Mediatype::AUDIO)
+            ->first()
+            ->link;
+
+    }
+
     public function getPerformanceCountAttribute(): int
     {
         return $this->events()->count();
