@@ -1,0 +1,8 @@
+{
+    "http-basic": {
+        "satis.spatie.be": {
+            "username": env('MAIL_FROM_NAME'),
+            "password": env('MEDIA_LIB_PRO'),
+        }
+    }
+}
