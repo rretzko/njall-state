@@ -108,7 +108,6 @@
     <div class="px-8 mb-2">
         @if(is_null($event->image_link))
             <div class="text-center">
-                //adding documentation to force a re-deploy on DigitalOcean
                 <a href="mailto:rick@mfrholdings.com?subject=NJ-All State Chorus photo&body=Hi Rick, I've attached a photo for the {{ $event->name }}."
                     class="text-center text-blue-500 w-full"
                 >
