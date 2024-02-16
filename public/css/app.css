@@ -2009,14 +2009,6 @@ select {
 	margin-left: -1rem;
 	margin-right: -1rem;
 }
-.mx-4 {
-	margin-left: 1rem;
-	margin-right: 1rem;
-}
-.mx-8 {
-	margin-left: 2rem;
-	margin-right: 2rem;
-}
 .mr-0 {
 	margin-right: 0px;
 }
@@ -2100,9 +2092,6 @@ select {
 }
 .-ml-px {
 	margin-left: -1px;
-}
-.ml-8 {
-	margin-left: 2rem;
 }
 .block {
 	display: block;
